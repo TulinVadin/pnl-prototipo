@@ -52,11 +52,10 @@
 .profile-stats .l{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:8px;display:block;font-weight:600}
 @media (max-width:720px){.profile-stats{grid-template-columns:repeat(2,1fr);gap:16px}.profile-stats .st{border-right:0;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:16px}.profile-stats .st:nth-last-child(-n+2){border-bottom:0}}
 
-.bio{display:grid;grid-template-columns:2fr 1fr;gap:56px;align-items:start;position:relative}
-.bio::before{content:"";position:absolute;left:66.666%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent 0%,var(--gris-200) 15%,var(--gris-200) 85%,transparent 100%);pointer-events:none}
-.bio > *:first-child{padding-right:28px}
-.bio > aside{padding-left:28px}
-@media (max-width:860px){.bio::before{display:none}.bio > *:first-child{padding-right:0;padding-bottom:36px;border-bottom:1px solid var(--gris-200)}.bio > aside{padding-left:0}}
+.bio{display:grid;grid-template-columns:2fr 1fr;gap:0;align-items:stretch}
+.bio > *:first-child{padding-right:40px}
+.bio > aside{padding-left:40px;border-left:1px solid var(--gris-200)}
+@media (max-width:860px){.bio{grid-template-columns:1fr}.bio > *:first-child{padding-right:0;padding-bottom:36px;border-bottom:1px solid var(--gris-200)}.bio > aside{padding-left:0;padding-top:36px;border-left:0}}
 .bio h2{margin-top:28px;margin-bottom:14px}
 .bio h2:first-child{margin-top:0}
 .bio p{font-size:1.02rem;line-height:1.75}
