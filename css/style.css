@@ -159,7 +159,13 @@ p{margin-bottom:1em;color:var(--gris-700)}
   padding:10px;display:none;list-style:none;
 }
 .has-sub:hover .nav__sub,.has-sub:focus-within .nav__sub{display:block}
-.nav__sub a{display:block;padding:9px 12px;font-size:.9rem;border-radius:6px}
+.nav__sub a{display:block;padding:9px 12px;font-size:.9rem;border-radius:6px;color:var(--azul)}
+.nav__sub a:hover{background:var(--gris-100);color:var(--azul)}
+/* En header scrolled, el submenú sigue siendo blanco con texto azul */
+.header.scrolled .nav__sub a,.header.scrolled .nav__sub a:hover{color:var(--azul)}
+.header.scrolled .nav__sub a:hover{background:var(--gris-100)}
+/* En móvil, mantener texto azul dentro del submenú */
+.nav__mobile.open .nav__sub a{color:var(--azul)}
 .nav__cta{display:flex;align-items:center;gap:10px}
 .nav__burger{display:none;flex-direction:column;gap:4px;padding:8px}
 .nav__burger span{display:block;width:24px;height:2px;background:var(--azul);border-radius:2px}
@@ -195,8 +201,8 @@ p{margin-bottom:1em;color:var(--gris-700)}
 .hero::after{
   content:"";position:absolute;inset:0;z-index:-1;
   background:
-    radial-gradient(ellipse at 85% 20%, rgba(251,162,17,.18) 0%, transparent 50%),
-    linear-gradient(100deg, rgba(15,29,58,.92) 0%, rgba(24,44,84,.78) 50%, rgba(24,44,84,.45) 100%);
+    radial-gradient(ellipse at 85% 25%, rgba(251,162,17,.14) 0%, transparent 55%),
+    linear-gradient(100deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.30) 100%);
 }
 .hero__inner{padding:120px 0;max-width:760px;position:relative}
 .hero__badge{
@@ -586,6 +592,19 @@ a.card:hover .card__name{color:var(--amber-600)}
   background-repeat:no-repeat;background-size:contain;opacity:.08;
 }
 .cta-block > *{position:relative;z-index:1}
+
+/* ---------- Lista de aportes (home) ---------- */
+.aporte-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:22px}
+.aporte-list li{display:flex;align-items:flex-start;gap:16px}
+.aporte-list__ico{
+  flex-shrink:0;width:48px;height:48px;border-radius:12px;
+  background:rgba(251,162,17,.15);color:var(--amber);
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(251,162,17,.3);
+}
+.aporte-list__ico svg{width:24px;height:24px}
+.aporte-list strong{display:block;color:#fff;font-family:var(--fs-serif);font-weight:700;font-size:1.15rem;margin-bottom:4px;letter-spacing:-.01em}
+.aporte-list span{display:block;color:rgba(255,255,255,.75);font-size:.92rem;line-height:1.5}
 
 /* ---------- Use grid (donaciones) ---------- */
 .use-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:12px}
