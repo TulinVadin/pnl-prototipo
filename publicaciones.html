@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Publicaciones Oficiales · Partido Nacional Libertario</title>
+<meta name="description" content="Documentos oficiales, declaraciones públicas y publicaciones del Partido Nacional Libertario.">
+<link rel="icon" href="assets/logos/pnl-isotipo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.filters{display:flex;flex-wrap:wrap;gap:20px;align-items:center;padding:20px 24px;background:var(--gris-50);border-radius:14px;margin-bottom:28px}
+.filter-group{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.filter-group b{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris-700);font-weight:700;margin-right:4px}
+.chip{
+  padding:8px 16px;border-radius:999px;background:#fff;border:1.5px solid var(--gris-200);
+  color:var(--azul);font-size:.86rem;font-weight:600;cursor:pointer;transition:all .2s;
+}
+.chip:hover{border-color:var(--amber)}
+.chip.active{background:var(--amber);border-color:var(--amber);color:var(--azul)}
+.filter-search{flex:1;min-width:200px}
+.filter-search input{width:100%;padding:10px 14px;border:1.5px solid var(--gris-200);border-radius:999px;font-family:inherit;font-size:.9rem;background:#fff;transition:border-color .2s}
+.filter-search input:focus{outline:0;border-color:var(--amber)}
+.pub-count{font-size:.85rem;color:var(--gris-400);margin-bottom:16px;font-weight:600}
+.pub[hidden]{display:none}
+.pub__meta .tag{display:inline-block;padding:2px 8px;background:var(--amber-50);color:var(--amber-600);border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-right:6px}
+.no-results{text-align:center;padding:60px 20px;color:var(--gris-400);font-size:.95rem}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <nav class="nav nav__mobile">
+      <a class="nav__brand" href="index.html"><img src="assets/logos/pnl-horizontal-blanco.png" alt="PNL"></a>
+      <ul class="nav__links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="autoridades-electas.html">Autoridades electas</a></li>
+        <li><a href="areas.html">Áreas</a></li>
+        <li><a href="publicaciones.html">Publicaciones</a></li>
+        <li><a href="donaciones.html">Donaciones</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="donaciones.html" class="btn btn-outline btn-sm">Donar</a>
+        <a href="hazte-militante.html" class="btn btn-primary btn-sm">Hazte militante</a>
+        <button class="nav__burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Inicio</a> / Publicaciones Oficiales</div>
+    <h1>Publicaciones Oficiales</h1>
+    <p>Declaraciones, estatutos, actas y documentos oficiales del Partido Nacional Libertario. Filtra por año, tipo o busca por palabra clave.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="filters">
+      <div class="filter-group">
+        <b>Año</b>
+        <button class="chip active" data-filter="year" data-value="all">Todos</button>
+        <button class="chip" data-filter="year" data-value="2026">2026</button>
+        <button class="chip" data-filter="year" data-value="2025">2025</button>
+        <button class="chip" data-filter="year" data-value="2024">2024</button>
+      </div>
+      <div class="filter-group">
+        <b>Tipo</b>
+        <button class="chip active" data-filter="type" data-value="all">Todos</button>
+        <button class="chip" data-filter="type" data-value="estatuto">Estatutos</button>
+        <button class="chip" data-filter="type" data-value="declaracion">Declaración</button>
+        <button class="chip" data-filter="type" data-value="comunicado">Comunicado</button>
+        <button class="chip" data-filter="type" data-value="acta">Acta</button>
+      </div>
+      <div class="filter-search">
+        <input type="search" id="pubSearch" placeholder="Buscar por palabra clave...">
+      </div>
+    </div>
+
+    <div class="pub-count"><span id="pubCount">6</span> documentos</div>
+
+    <div class="pub-list" id="pubList">
+
+      <a class="pub" data-year="2024" data-type="estatuto" data-month="11" href="https://nacionallibertario.cl/wp-content/uploads/2025/04/04-11-2024.-EP-rectificatoria_compressed.pdf" target="_blank" rel="noopener">
+        <div class="pub__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg></div>
+        <div><span class="pub__ttl">Estatutos del Partido</span><span class="pub__meta"><span class="tag">Estatuto</span>Noviembre 2024 · PDF</span><span class="pub__lnk">Descargar →</span></div>
+      </a>
+
+      <a class="pub" data-year="2024" data-type="declaracion" data-month="6" href="#">
+        <div class="pub__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6a2 2 0 00-2 2v18l4-4h12a2 2 0 002-2V4a2 2 0 00-2-2z"/></svg></div>
+        <div><span class="pub__ttl">Declaración de Principios</span><span class="pub__meta"><span class="tag">Declaración</span>Junio 2024 · PDF</span><span class="pub__lnk">Descargar →</span></div>
+      </a>
+
+      <a class="pub" data-year="2025" data-type="comunicado" data-month="3" href="#">
+        <div class="pub__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.9v8.1a4.5 4.5 0 002.5-4z"/></svg></div>
+        <div><span class="pub__ttl">Comunicado sobre reforma de pensiones</span><span class="pub__meta"><span class="tag">Comunicado</span>Marzo 2025 · PDF</span><span class="pub__lnk">Descargar →</span></div>
+      </a>
+
+      <a class="pub" data-year="2025" data-type="declaracion" data-month="8" href="#">
+        <div class="pub__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6a2 2 0 00-2 2v18l4-4h12a2 2 0 002-2V4a2 2 0 00-2-2z"/></svg></div>
+        <div><span class="pub__ttl">Programa presidencial 2025</span><span class="pub__meta"><span class="tag">Declaración</span>Agosto 2025 · PDF</span><span class="pub__lnk">Descargar →</span></div>
+      </a>
+
+      <a class="pub" data-year="2026" data-type="acta" data-month="2" href="#">
+        <div class="pub__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 16H5V9h14v11z"/></svg></div>
+        <div><span class="pub__ttl">Acta Consejo General Ordinario</span><span class="pub__meta"><span class="tag">Acta</span>Febrero 2026 · PDF</span><span class="pub__lnk">Descargar →</span></div>
+      </a>
+
+      <a class="pub" data-year="2026" data-type="comunicado" data-month="5" href="#">
+        <div class="pub__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.9v8.1a4.5 4.5 0 002.5-4z"/></svg></div>
+        <div><span class="pub__ttl">Postura ante la nueva Ley de Seguridad</span><span class="pub__meta"><span class="tag">Comunicado</span>Mayo 2026 · PDF</span><span class="pub__lnk">Descargar →</span></div>
+      </a>
+
+    </div>
+
+    <div class="no-results" id="noResults" hidden>No encontramos documentos con esos filtros.</div>
+
+    <div style="margin-top:40px;padding:24px;background:var(--gris-50);border-radius:14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between">
+      <div style="display:flex;gap:14px;align-items:center">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--amber);color:var(--azul);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2L2 7v6c0 5.5 3.8 10.7 10 12 6.2-1.3 10-6.5 10-12V7l-10-5z"/></svg></div>
+        <div>
+          <div style="font-weight:700;color:var(--azul)">Transparencia Activa</div>
+          <div style="font-size:.85rem;color:var(--gris-700)">Toda la información financiera del partido en el portal del Servel</div>
+        </div>
+      </div>
+      <a href="https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=PP077" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Visitar portal</a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand"><img src="assets/logos/pnl-horizontal-azul.png" alt="PNL"></div>
+      <div><h4>Partido</h4><a href="nosotros.html">Nosotros</a><a href="autoridades-electas.html">Autoridades electas</a></div>
+      <div><h4>Participa</h4><a href="hazte-militante.html">Hazte militante</a><a href="donaciones.html">Donaciones</a></div>
+      <div><h4>Contacto</h4><a href="mailto:contacto@nacionallibertario.cl">contacto@nacionallibertario.cl</a></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 Partido Nacional Libertario</span></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+(function(){
+  const state = { year:'all', type:'all', q:'' };
+  const list = document.getElementById('pubList');
+  const items = Array.from(list.querySelectorAll('.pub'));
+  const count = document.getElementById('pubCount');
+  const noRes = document.getElementById('noResults');
+
+  function apply(){
+    let shown = 0;
+    const q = state.q.toLowerCase().trim();
+    items.forEach(it => {
+      const yearOk = state.year === 'all' || it.dataset.year === state.year;
+      const typeOk = state.type === 'all' || it.dataset.type === state.type;
+      const text = it.textContent.toLowerCase();
+      const qOk = !q || text.includes(q);
+      const show = yearOk && typeOk && qOk;
+      it.hidden = !show;
+      if (show) shown++;
+    });
+    count.textContent = shown;
+    noRes.hidden = shown > 0;
+  }
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const f = chip.dataset.filter, v = chip.dataset.value;
+      document.querySelectorAll('.chip[data-filter="'+f+'"]').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      state[f] = v;
+      apply();
+    });
+  });
+
+  document.getElementById('pubSearch').addEventListener('input', (e) => {
+    state.q = e.target.value;
+    apply();
+  });
+})();
+</script>
+</body>
+</html>

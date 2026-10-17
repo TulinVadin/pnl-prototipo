@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contacto · Partido Nacional Libertario</title>
+<meta name="description" content="Escríbenos. El Partido Nacional Libertario te responde personalmente.">
+<link rel="icon" href="assets/logos/pnl-isotipo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <nav class="nav nav__mobile">
+      <a class="nav__brand" href="index.html"><img src="assets/logos/pnl-horizontal-blanco.png" alt="PNL"></a>
+      <ul class="nav__links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="autoridades-electas.html">Autoridades electas</a></li>
+        <li><a href="areas.html">Áreas</a></li>
+        <li><a href="publicaciones.html">Publicaciones</a></li>
+        <li><a href="donaciones.html">Donaciones</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="donaciones.html" class="btn btn-outline btn-sm">Donar</a>
+        <a href="hazte-militante.html" class="btn btn-primary btn-sm">Hazte militante</a>
+        <button class="nav__burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Inicio</a> / Contacto</div>
+    <h1>Contacto</h1>
+    <p>Dirígete al área correspondiente y te responderemos en los próximos días hábiles.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start">
+    <form class="form" onsubmit="event.preventDefault();alert('Formulario de demostración.')">
+      <div class="row">
+        <div><label for="nombre">Nombre completo</label><input id="nombre" type="text" required placeholder="Ej. María González"></div>
+        <div><label for="email">Correo electrónico</label><input id="email" type="email" required placeholder="tucorreo@ejemplo.cl"></div>
+      </div>
+      <div class="row">
+        <div><label for="region">Región</label>
+          <select id="region"><option>Metropolitana</option><option>Valparaíso</option><option>Biobío</option><option>Araucanía</option><option>Otra</option></select>
+        </div>
+        <div><label for="motivo">Motivo</label>
+          <select id="motivo">
+            <option>Quiero militar</option>
+            <option>Prensa</option>
+            <option>Donaciones</option>
+            <option>Juventud Nacional Libertaria</option>
+            <option>Mujeres Nacional Libertarias</option>
+            <option>Consulta general</option>
+          </select>
+        </div>
+      </div>
+      <div><label for="msg">Mensaje</label><textarea id="msg" required placeholder="Cuéntanos en qué podemos ayudarte"></textarea></div>
+      <label style="display:flex;gap:10px;align-items:flex-start;font-size:.88rem;color:var(--gris-700);font-weight:400"><input type="checkbox" required style="width:auto;margin-top:3px"> Autorizo al PNL a contactarme por este medio. Tus datos no serán compartidos con terceros.</label>
+      <button type="submit" class="btn btn-primary" style="align-self:flex-start">Enviar mensaje</button>
+    </form>
+
+    <aside>
+      <div style="background:var(--gris-50);border-radius:14px;padding:28px">
+        <h3 style="margin-bottom:16px">Canales directos</h3>
+        <p style="margin-bottom:4px;color:var(--azul);font-weight:600">Correo general</p>
+        <p><a href="mailto:contacto@nacionallibertario.cl">contacto@nacionallibertario.cl</a></p>
+        <p style="margin-bottom:4px;color:var(--azul);font-weight:600;margin-top:16px">Prensa</p>
+        <p><a href="mailto:prensa@nacionallibertario.cl">prensa@nacionallibertario.cl</a></p>
+        <p style="margin-bottom:4px;color:var(--azul);font-weight:600;margin-top:16px">Redes sociales</p>
+        <p style="margin-top:8px">
+          <a href="https://www.facebook.com/p/Partido-Nacional-Libertario-61560587226566/" target="_blank" rel="noopener">Facebook</a> ·
+          <a href="https://x.com/Partido_NL" target="_blank" rel="noopener">X</a> ·
+          <a href="https://www.instagram.com/partido_nacional_libertario/" target="_blank" rel="noopener">Instagram</a> ·
+          <a href="https://www.tiktok.com/@partido_nl" target="_blank" rel="noopener">TikTok</a> ·
+          <a href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">YouTube</a>
+        </p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand"><img src="assets/logos/pnl-horizontal-azul.png" alt="PNL"></div>
+      <div><h4>Partido</h4><a href="nosotros.html">Nosotros</a><a href="autoridades-electas.html">Autoridades electas</a></div>
+      <div><h4>Participa</h4><a href="hazte-militante.html">Hazte militante</a><a href="donaciones.html">Donaciones</a></div>
+      <div><h4>Contacto</h4><a href="mailto:contacto@nacionallibertario.cl">contacto@nacionallibertario.cl</a></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 Partido Nacional Libertario</span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

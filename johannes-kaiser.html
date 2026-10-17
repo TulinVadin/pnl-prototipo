@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Johannes Kaiser — Presidente del PNL</title>
+<meta name="description" content="Johannes Kaiser, fundador y presidente del Partido Nacional Libertario. Diputado por el Distrito 10, excandidato presidencial 2025 y referente del paleolibertarismo en Chile.">
+<meta name="keywords" content="Johannes Kaiser, PNL, Partido Nacional Libertario, diputado, presidente partido, candidato presidencial Chile, libertario">
+<link rel="icon" href="assets/logos/pnl-isotipo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* Perfil presidente */
+.profile-hero{
+  background:linear-gradient(135deg,var(--azul) 0%,var(--azul-900) 100%);
+  color:var(--blanco);padding:80px 0 60px;position:relative;overflow:hidden;
+}
+.profile-hero::before{
+  content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;
+  background-image:url('assets/logos/pnl-isotipo.png');background-size:contain;background-repeat:no-repeat;opacity:.06;
+}
+.profile-hero__grid{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:center;position:relative;z-index:1}
+.profile-hero h1{color:#fff;font-size:clamp(2.4rem,4.4vw,3.6rem);margin:14px 0 10px;line-height:1.05}
+.profile-hero .role{display:inline-block;padding:6px 14px;background:rgba(251,162,17,.15);color:var(--amber);border:1px solid rgba(251,162,17,.4);border-radius:999px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.profile-hero p.sub{color:rgba(255,255,255,.85);font-size:1.1rem;max-width:52ch;margin:0}
+
+.profile-visual{position:relative}
+.profile-hero__photo{aspect-ratio:4/5;max-width:340px;margin-left:auto;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);border:4px solid rgba(255,255,255,.08);position:relative}
+.profile-hero__photo img{width:100%;height:100%;object-fit:cover}
+.profile-quote{
+  position:absolute;left:-20px;bottom:30px;max-width:280px;
+  background:var(--amber);color:var(--azul);padding:18px 20px;border-radius:12px;
+  box-shadow:0 15px 40px rgba(0,0,0,.35);transform:rotate(-2deg);
+}
+.profile-quote p{font-family:var(--fs-serif);font-weight:700;font-size:.98rem;line-height:1.35;margin:0;color:var(--azul);letter-spacing:-.01em}
+.profile-quote::before{content:"\201C";position:absolute;left:12px;top:-18px;font-family:Georgia,serif;font-size:3.4rem;line-height:1;color:var(--azul)}
+
+.profile-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.profile-meta span{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600}
+.profile-meta svg{width:14px;height:14px;display:inline-block;vertical-align:-2px;margin-right:6px;color:var(--amber)}
+
+.profile-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  margin-top:48px;padding:28px 0;position:relative;z-index:1;
+  border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);
+}
+.profile-stats .st{text-align:center;padding:0 16px;border-right:1px solid rgba(255,255,255,.1)}
+.profile-stats .st:last-child{border-right:0}
+.profile-stats .n{font-family:var(--fs-serif);font-weight:800;font-size:1.9rem;color:var(--amber);display:block;line-height:1;letter-spacing:-.03em}
+.profile-stats .l{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:8px;display:block;font-weight:600}
+@media (max-width:720px){.profile-stats{grid-template-columns:repeat(2,1fr);gap:16px}.profile-stats .st{border-right:0;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:16px}.profile-stats .st:nth-last-child(-n+2){border-bottom:0}}
+
+.bio{display:grid;grid-template-columns:2fr 1fr;gap:56px;align-items:start}
+.bio h2{margin-top:28px;margin-bottom:14px}
+.bio h2:first-child{margin-top:0}
+.bio p{font-size:1.02rem;line-height:1.75}
+.pilares{display:grid;gap:14px;margin-top:12px}
+.pilar{padding:22px;border-radius:14px;background:#fff;border:1px solid var(--gris-100);display:flex;gap:14px;align-items:flex-start;transition:all .25s}
+.pilar:hover{border-color:var(--amber);transform:translateY(-2px);box-shadow:var(--sombra)}
+.pilar__ico{flex-shrink:0;width:44px;height:44px;border-radius:12px;background:var(--amber-50);color:var(--amber-600);display:flex;align-items:center;justify-content:center}
+.pilar__ico svg{width:22px;height:22px}
+.pilar h3{color:var(--azul);font-size:1.02rem;margin-bottom:4px}
+.pilar p{font-size:.92rem;color:var(--gris-700);margin:0;line-height:1.55}
+
+.sidebar-card{background:var(--gris-50);border-radius:14px;padding:28px;position:sticky;top:92px}
+.sidebar-card h3{color:var(--azul);font-size:1.1rem;margin-bottom:14px}
+.sidebar-card .data{display:flex;flex-direction:column;gap:14px;margin-bottom:20px}
+.sidebar-card .data > div{display:flex;flex-direction:column}
+.sidebar-card .data b{color:var(--gris-400);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:2px}
+.sidebar-card .data span{color:var(--azul);font-weight:600;font-size:.95rem}
+.sidebar-card .socials-row{display:flex;gap:8px;flex-wrap:wrap}
+.sidebar-card .socials-row a{width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;color:var(--azul);border:1px solid var(--gris-100);transition:all .2s}
+.sidebar-card .socials-row a:hover{background:var(--amber);color:var(--azul);border-color:var(--amber)}
+.sidebar-card .socials-row svg{width:16px;height:16px}
+
+.bio-figure{margin:32px 0 24px;border-radius:14px;overflow:hidden;box-shadow:var(--sombra-md);position:relative}
+.bio-figure img{display:block;width:100%;height:auto;max-height:460px;object-fit:cover}
+.bio-figure figcaption{background:var(--azul);color:#fff;padding:14px 18px;font-size:.88rem;letter-spacing:.02em}
+
+@media (max-width:860px){.profile-hero__grid{grid-template-columns:1fr;gap:28px}.bio{grid-template-columns:1fr;gap:32px}.sidebar-card{position:static}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <nav class="nav nav__mobile">
+      <a class="nav__brand" href="index.html"><img src="assets/logos/pnl-horizontal-blanco.png" alt="PNL"></a>
+      <ul class="nav__links">
+        <li><a href="index.html">Inicio</a></li>
+        <li class="has-sub"><a href="nosotros.html">Nosotros</a>
+          <ul class="nav__sub">
+            <li><a href="nosotros.html#principios">Principios</a></li>
+            <li><a href="nosotros.html#directiva">Directiva Nacional</a></li>
+            <li><a href="directivas-regionales.html">Directivas Regionales</a></li>
+            <li><a href="nosotros.html#estatutos">Estatutos</a></li>
+          </ul>
+        </li>
+        <li><a href="autoridades-electas.html">Autoridades electas</a></li>
+        <li class="has-sub"><a href="areas.html">Áreas</a>
+          <ul class="nav__sub">
+            <li><a href="areas.html#juventud">Juventud Nacional Libertaria</a></li>
+            <li><a href="areas.html#mujeres">Mujeres Nacional Libertarias</a></li>
+          </ul>
+        </li>
+        <li><a href="publicaciones.html">Publicaciones</a></li>
+        <li><a href="donaciones.html">Donaciones</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="donaciones.html" class="btn btn-outline btn-sm">Donar</a>
+        <a href="hazte-militante.html" class="btn btn-primary btn-sm">Hazte militante</a>
+        <button class="nav__burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="profile-hero">
+  <div class="container">
+    <div class="breadcrumb" style="color:rgba(255,255,255,.7);margin-bottom:8px"><a href="index.html" style="color:var(--amber)">Inicio</a> / <a href="nosotros.html" style="color:var(--amber)">Nosotros</a> / Johannes Kaiser</div>
+    <div class="profile-hero__grid">
+      <div>
+        <span class="role">Presidente del Partido</span>
+        <h1>Johannes Kaiser</h1>
+        <p class="sub">Fundador y presidente del Partido Nacional Libertario. Diputado por el Distrito 10, comunicador y referente del paleolibertarismo en Chile.</p>
+        <div class="profile-meta">
+          <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7zm0 9.5A2.5 2.5 0 1012 6.5a2.5 2.5 0 000 5z"/></svg>Distrito 10 · RM</span>
+          <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2zm-9 10h-5v-1h5v1zm0-3h-5v-1h5v1zm0-3h-5V9h5v1zm7 6h-6v-6h6v6z"/></svg>Diputado 2022-2026</span>
+          <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-5V6h2v5h3v2z"/></svg>Nacido el 5 de enero de 1976</span>
+        </div>
+      </div>
+      <div class="profile-visual">
+        <div class="profile-hero__photo"><img src="assets/parlamentarios/kaiser-johannes.jpg" alt="Johannes Kaiser"></div>
+        <div class="profile-quote"><p>Si no defendemos a Chile nosotros, no lo va a defender nadie.</p></div>
+      </div>
+    </div>
+
+    <div class="profile-stats">
+      <div class="st"><span class="n">2024</span><span class="l">Fundación del PNL</span></div>
+      <div class="st"><span class="n">4°</span><span class="l">Lugar presidencial 2025</span></div>
+      <div class="st"><span class="n">+50k</span><span class="l">Militantes del partido</span></div>
+      <div class="st"><span class="n">16</span><span class="l">Regiones con estructura</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="bio">
+      <article>
+        <span class="eyebrow">Trayectoria</span>
+        <h2>De la batalla cultural al Congreso</h2>
+        <p>Johannes Kaiser inició su recorrido público desde la trinchera comunicacional. En septiembre de 2013 fundó el canal de YouTube <strong>El Nacional-Libertario</strong>, un espacio desde el cual promovió durante años el debate político, la batalla cultural y la divulgación consistente de las ideas de la libertad. Lo hizo cuando esas ideas no tenían vocería en Chile, con un trabajo sostenido que terminó forjando una audiencia y un movimiento.</p>
+        <p>En 2021 regresó al país y fue electo diputado de la República por el <strong>Distrito 10 de la Región Metropolitana</strong> para el período legislativo 2022-2026, convirtiéndose en uno de los parlamentarios con mayor consistencia doctrinaria en el Congreso.</p>
+
+        <h2>Fundación del Partido Nacional Libertario</h2>
+        <p>En <strong>junio de 2024</strong> impulsó la formación del Partido Nacional Libertario, consolidando una fuerza política orientada a la defensa de la soberanía nacional, la libertad económica, el Estado de derecho y el sentido común. El PNL nace como respuesta a un vacío: la ausencia de una derecha sin complejos, dispuesta a defender sus convicciones sin pedir perdón por hacerlo.</p>
+        <p>Bajo su conducción, el partido logró inscripción formal en los plazos legales y construyó estructura territorial en las 16 regiones del país en pocos meses, superando los 50 mil militantes.</p>
+
+        <h2>Candidatura presidencial 2025</h2>
+        <p>En 2025 asumió la <strong>candidatura presidencial</strong> en representación del PNL. La campaña posicionó al movimiento como una de las principales alternativas políticas del país y, en una elección altamente competitiva, Kaiser obtuvo el <strong>cuarto lugar en la primera vuelta presidencial</strong>, con una votación que ratificó la existencia de un electorado nuevo, decidido y transversal que se identifica con sus ideas.</p>
+
+        <figure class="bio-figure">
+          <img src="assets/img/johannes-podio.jpg" alt="Johannes Kaiser en el cierre de campaña presidencial 2025">
+          <figcaption>Johannes Kaiser en el cierre de campaña presidencial, 2025.</figcaption>
+        </figure>
+
+        <h2>Pensamiento político</h2>
+        <p>Johannes Kaiser se define doctrinariamente dentro del <strong>paleolibertarismo</strong> y el <strong>minarquismo</strong>: una visión que combina el respeto radical por la libertad individual con la defensa de las instituciones culturales, familiares y nacionales que la hacen posible. Esto se traduce en una propuesta clara: un Estado pequeño pero firme, soberano hacia afuera y limitado hacia adentro.</p>
+
+        <h2>Pilares de su acción pública</h2>
+        <div class="pilares">
+          <div class="pilar">
+            <div class="pilar__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7v6c0 5.5 3.8 10.7 10 12 6.2-1.3 10-6.5 10-12V7l-10-5z"/></svg></div>
+            <div><h3>Inviolabilidad de la libertad y la propiedad privada</h3><p>Reducción de la burocracia estatal y fomento de la iniciativa individual sin coacciones arbitrarias.</p></div>
+          </div>
+          <div class="pilar">
+            <div class="pilar__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-1-13h2v6h-2zm0 7h2v2h-2z"/></svg></div>
+            <div><h3>Soberanía y realismo geopolítico</h3><p>Primacía de los intereses nacionales por sobre los dogmas de organismos transnacionales.</p></div>
+          </div>
+          <div class="pilar">
+            <div class="pilar__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-7-11a5 5 0 019-3 5 5 0 019 3c0 6.5-7 11-7 11h-4z"/></svg></div>
+            <div><h3>Resguardo de la familia y la vida</h3><p>Reconocimiento de la familia como núcleo fundamental de la sociedad y defensa del derecho inalienable a la vida.</p></div>
+          </div>
+          <div class="pilar">
+            <div class="pilar__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1 15l-4-4 1.4-1.4L11 13.2l5.6-5.6L18 9l-7 7z"/></svg></div>
+            <div><h3>Orden, seguridad y Estado de derecho</h3><p>Respaldo firme a las fuerzas del orden y tolerancia cero frente a la delincuencia.</p></div>
+          </div>
+        </div>
+
+        <h2>Formación</h2>
+        <p>Realizó sus estudios de enseñanza media en establecimientos alemanes y en la <strong>Escuela Militar del Libertador Bernardo O'Higgins</strong>. Cursó estudios universitarios de <strong>Derecho y Humanidades</strong> en Chile y en la <strong>Universidad de Innsbruck, Austria</strong>, donde además desarrolló una activa labor periodística y comunicacional como corresponsal.</p>
+      </article>
+
+      <aside>
+        <div class="sidebar-card">
+          <h3>Perfil</h3>
+          <div class="data">
+            <div><b>Cargo</b><span>Presidente del PNL</span></div>
+            <div><b>Función parlamentaria</b><span>Diputado · Distrito 10 RM</span></div>
+            <div><b>Período</b><span>2022-2026</span></div>
+            <div><b>Partido</b><span>Fundador — junio 2024</span></div>
+            <div><b>Formación</b><span>Derecho y Humanidades (U. de Innsbruck)</span></div>
+            <div><b>Doctrina</b><span>Paleolibertarismo · Minarquismo</span></div>
+          </div>
+          <h3>Redes</h3>
+          <div class="socials-row">
+            <a href="https://www.instagram.com/joukaiser/" target="_blank" rel="noopener" title="Instagram @joukaiser" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 2 .3 2.6.5.7.3 1.2.6 1.7 1.2.5.5.9 1 1.2 1.7.2.6.4 1.4.5 2.6 0 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 2-.5 2.6-.3.7-.6 1.2-1.2 1.7-.5.5-1 .9-1.7 1.2-.6.2-1.4.4-2.6.5-1.3 0-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-2-.3-2.6-.5-.7-.3-1.2-.6-1.7-1.2-.5-.5-.9-1-1.2-1.7-.2-.6-.4-1.4-.5-2.6 0-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.3-2 .5-2.6.3-.7.6-1.2 1.2-1.7.5-.5 1-.9 1.7-1.2.6-.2 1.4-.4 2.6-.5 1.3 0 1.6-.1 4.8-.1zm0 3.5A4.2 4.2 0 1112 16a4.2 4.2 0 010-8.2zm0 7a2.8 2.8 0 100-5.6 2.8 2.8 0 000 5.6z"/></svg></a>
+            <a href="https://x.com/Jou_Kaiser" target="_blank" rel="noopener" title="X @Jou_Kaiser" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 3H22l-7.2 8.2L23 21h-6.6l-5.1-6.6L5.5 21H2.4l7.7-8.8L2 3h6.8l4.6 6.1L18.9 3z"/></svg></a>
+            <a href="https://www.youtube.com/channel/UC2tdSec2KF32KGz6E9YWRQA" target="_blank" rel="noopener" title="Canal YouTube El Nacional-Libertario" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5s-.2-1.6-.9-2.3c-.8-.9-1.8-.9-2.2-1C16.6 4 12 4 12 4s-4.6 0-7.9.3c-.4 0-1.4.1-2.2 1-.7.7-.9 2.3-.9 2.3S.8 9.3.8 11.2v1.6c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1 1.8.2 7.7.2 7.7.2s4.6 0 7.9-.3c.4 0 1.4-.1 2.2-1 .7-.7.9-2.3.9-2.3s.2-1.8.2-3.7v-1.6c0-1.9-.2-3.7-.2-3.7zM9.7 15V8.5l6.2 3.2L9.7 15z"/></svg></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section section--navy">
+  <div class="container center">
+    <h2 style="color:#fff">¿Comparte las ideas de Johannes?</h2>
+    <p style="color:rgba(255,255,255,.85);max-width:52ch;margin:0 auto 24px">El PNL creció porque miles de chilenos dijeron que sí. Súmate como militante o apoya con tu aporte.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="hazte-militante.html" class="btn btn-primary">Hazte militante</a>
+      <a href="donaciones.html" class="btn btn-ghost">Quiero donar</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand"><img src="assets/logos/pnl-horizontal-azul.png" alt="PNL"><p class="footer__tag">Por un Chile libre, seguro y soberano.</p></div>
+      <div><h4>Partido</h4><a href="nosotros.html">Nosotros</a><a href="autoridades-electas.html">Autoridades electas</a><a href="directivas-regionales.html">Directivas regionales</a></div>
+      <div><h4>Participa</h4><a href="hazte-militante.html">Hazte militante</a><a href="donaciones.html">Donaciones</a><a href="areas.html">Áreas</a></div>
+      <div><h4>Contacto</h4><a href="mailto:contacto@nacionallibertario.cl">contacto@nacionallibertario.cl</a></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 Partido Nacional Libertario</span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
