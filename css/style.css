@@ -619,10 +619,30 @@ a.card:hover .card__name{color:var(--amber-600)}
 .btn-sm{padding:10px 18px;font-size:.88rem}
 .btn-self{align-self:flex-start}
 .section-head{margin-bottom:40px}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative}
+.two-col::before{
+  content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,transparent 0%,var(--gris-200) 18%,var(--gris-200) 82%,transparent 100%);
+  pointer-events:none;
+}
+.section--navy .two-col::before,.section--gris .two-col--on-gris::before{background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,.18) 18%,rgba(255,255,255,.18) 82%,transparent 100%)}
+.two-col > *:first-child{padding-right:28px}
+.two-col > *:last-child{padding-left:28px}
+.two-col--plain{gap:48px}
+.two-col--plain::before{display:none}
+.two-col--plain > *{padding-left:0;padding-right:0}
+.two-col--sidebar{grid-template-columns:2fr 1fr}
+.two-col--sidebar-left{grid-template-columns:1.3fr 1fr}
 .don-grid--2{grid-template-columns:1fr 1fr}
 .footer__tag{color:rgba(255,255,255,.65);font-size:.9rem;margin:0 0 10px}
-@media (max-width:760px){.two-col{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .two-col,.two-col--sidebar,.two-col--sidebar-left{grid-template-columns:1fr;gap:36px}
+  .two-col > *:first-child{padding-right:0;padding-bottom:36px;border-bottom:1px solid var(--gris-200);position:relative}
+  .two-col > *:last-child{padding-left:0}
+  .two-col::before{display:none}
+  .section--navy .two-col > *:first-child{border-bottom-color:rgba(255,255,255,.18)}
+  .two-col--plain > *:first-child{border-bottom:0;padding-bottom:0}
+}
 
 /* ---------- Utilidades ---------- */
 .center{text-align:center}
