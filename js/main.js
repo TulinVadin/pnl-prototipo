@@ -388,20 +388,6 @@ function initCarousels(){
     const originalItems = Array.from(carousel.children);
     if (originalItems.length < 2) return;
 
-    // Pre-asignar data-num a los principios reales (para que el conteo sea correcto)
-    if (originalItems[0].classList.contains('principio')) {
-      // calcula offset: busca otros .principios anteriores con data-start
-      let base = 1;
-      const prevCarousels = document.querySelectorAll('.principios.carousel-always');
-      prevCarousels.forEach(pc => {
-        if (pc === carousel) return;
-        if (pc.compareDocumentPosition(carousel) & Node.DOCUMENT_POSITION_FOLLOWING) {
-          base += pc.children.length;
-        }
-      });
-      originalItems.forEach((it, i) => it.setAttribute('data-num', String(base + i).padStart(2, '0')));
-    }
-
     // Clonar los últimos N al inicio y los primeros N al final
     const cloneCount = Math.min(3, originalItems.length);
     originalItems.slice(0, cloneCount).forEach(it => {
@@ -421,33 +407,47 @@ function initCarousels(){
     const realStart = cloneCount;
     const realEnd = cloneCount + originalItems.length - 1;
 
-    const getItemCenterOffset = (idx) => {
-      const target = allItems[idx];
-      // Posición absoluta en el carrusel (ignorando scrollLeft)
-      return target.offsetLeft - (carousel.clientWidth - target.offsetWidth) / 2;
-    };
     const scrollToIndex = (idx, smooth = true) => {
-      const left = getItemCenterOffset(idx);
+      const target = allItems[idx];
+      if (!target) return;
+      const rCar = carousel.getBoundingClientRect();
+      const rIt = target.getBoundingClientRect();
+      const relLeft = rIt.left - rCar.left + carousel.scrollLeft;
+      const left = relLeft - (carousel.clientWidth - target.offsetWidth) / 2;
       carousel.scrollTo({ left: Math.max(0, left), behavior: smooth ? 'smooth' : 'auto' });
     };
     const currentIndex = () => {
-      const center = carousel.scrollLeft + carousel.clientWidth / 2;
+      const rCar = carousel.getBoundingClientRect();
+      const center = rCar.width / 2;
       let best = 0, bestDist = Infinity;
       allItems.forEach((it, i) => {
-        const itCenter = it.offsetLeft + it.offsetWidth / 2;
+        const r = it.getBoundingClientRect();
+        const itCenter = r.left - rCar.left + r.width / 2;
         const d = Math.abs(itCenter - center);
         if (d < bestDist) { bestDist = d; best = i; }
       });
       return best;
     };
 
-    // Posición inicial sobre el primer item real (esperamos a window.load por si hay imágenes)
-    const positionInitial = () => scrollToIndex(realStart, false);
-    if (document.readyState === 'complete') {
-      requestAnimationFrame(positionInitial);
-    } else {
-      window.addEventListener('load', () => requestAnimationFrame(positionInitial), { once: true });
+    // Posición inicial sobre el primer item real
+    const positionInitial = () => {
+      // Dos rAF para asegurar que el layout está listo
+      requestAnimationFrame(() => requestAnimationFrame(() => scrollToIndex(realStart, false)));
+    };
+    positionInitial();
+    if (document.readyState !== 'complete') {
+      window.addEventListener('load', positionInitial, { once: true });
     }
+    // Observa cuando el carrusel aparece en viewport para re-posicionar si fuera necesario
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && carousel.scrollLeft === 0) {
+          scrollToIndex(realStart, false);
+          io.unobserve(carousel);
+        }
+      });
+    }, { threshold: 0.1 });
+    io.observe(carousel);
 
     // Wrap
     let wrap = carousel.parentElement;

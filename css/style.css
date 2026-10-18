@@ -710,7 +710,7 @@ a.card:hover .card__name{color:var(--amber-600)}
 @media (max-width:760px){
   .grid-carousel{
     display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
-    gap:14px;padding:8px 20px 20px;margin:0 -20px;
+    gap:14px;padding:8px 20px 20px;margin:0 -20px;position:relative;
     scrollbar-width:none;-webkit-overflow-scrolling:touch;
     scroll-behavior:smooth;
   }
@@ -739,7 +739,7 @@ a.card:hover .card__name{color:var(--amber-600)}
 /* Carrusel permanente (ej. principios en desktop) */
 .carousel-always{
   display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;
-  gap:16px;padding:8px 4px 20px;margin:0;
+  gap:16px;padding:8px 4px 20px;margin:0;position:relative;
   scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;
 }
 .carousel-always::-webkit-scrollbar{display:none}
