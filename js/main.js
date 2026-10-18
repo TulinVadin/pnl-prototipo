@@ -78,48 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderGateWall(path);
   }
 
-  // ======= Modal de bienvenida (home, 1x por sesión, solo si no está logueado) =======
-  const isHome = /\/(index\.html)?$/.test(location.pathname) || location.pathname.endsWith('/') || path === 'index.html';
-  let dismissed = false;
-  try { dismissed = sessionStorage.getItem('pnl_academia_modal_seen') === '1'; } catch(e){}
-
-  if (isHome && !dismissed && !PNL.isLoggedIn()) {
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.innerHTML = `
-      <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <button class="modal__close" aria-label="Cerrar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        </button>
-        <div class="modal__hd">
-          <span class="modal__badge">Novedad 2026</span>
-          <h2 id="modalTitle">Academia Nacional Libertaria</h2>
-        </div>
-        <div class="modal__bd">
-          <p>Formación política y doctrinal exclusiva para militantes del PNL. Clases semanales en vivo con contenido reservado.</p>
-          <ul>
-            <li>Acceso a clases en vivo y repositorio histórico</li>
-            <li>Material de estudio descargable</li>
-            <li>Participación en foros y debates internos</li>
-          </ul>
-          <div class="modal__actions">
-            <a href="login.html" class="btn btn-primary">Iniciar sesión</a>
-            <a href="hazte-militante.html" class="btn btn-outline">Hazte militante</a>
-          </div>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-    const closeFn = () => {
-      modal.classList.remove('open');
-      try { sessionStorage.setItem('pnl_academia_modal_seen', '1'); } catch(e){}
-      setTimeout(() => modal.remove(), 400);
-    };
-    modal.querySelector('.modal__close').addEventListener('click', closeFn);
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeFn(); });
-    document.addEventListener('keydown', function esc(e){ if (e.key === 'Escape') { closeFn(); document.removeEventListener('keydown', esc); } });
-    setTimeout(() => modal.classList.add('open'), 900);
-  }
+  // Modal de bienvenida Academia: desactivado por decisión del cliente
 
   // ======= Toast lateral para militantes logueados =======
   if (PNL.isLoggedIn()) {
