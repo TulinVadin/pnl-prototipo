@@ -412,24 +412,41 @@ function initCarousels(){
     wrap.appendChild(prev);
     wrap.appendChild(next);
 
-    const scrollToIndex = (idx) => {
+    const scrollToIndex = (idx, smooth = true) => {
       const total = items.length;
-      const i = ((idx % total) + total) % total; // circular
-      items[i].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+      const i = ((idx % total) + total) % total;
+      const target = items[i];
+      const left = target.offsetLeft - carousel.offsetLeft - (carousel.clientWidth - target.clientWidth) / 2;
+      carousel.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
     };
     const currentIndex = () => {
       const scrollLeft = carousel.scrollLeft;
-      const center = scrollLeft + carousel.clientWidth/2;
+      const center = scrollLeft + carousel.clientWidth / 2;
       let best = 0, bestDist = Infinity;
       items.forEach((it, i) => {
-        const itCenter = it.offsetLeft + it.offsetWidth/2;
+        const itCenter = it.offsetLeft - carousel.offsetLeft + it.offsetWidth / 2;
         const d = Math.abs(itCenter - center);
         if (d < bestDist) { bestDist = d; best = i; }
       });
       return best;
     };
-    prev.addEventListener('click', () => scrollToIndex(currentIndex() - 1));
-    next.addEventListener('click', () => scrollToIndex(currentIndex() + 1));
+    // Loop infinito: al cruzar el borde, salto sin animación al equivalente del otro lado
+    prev.addEventListener('click', () => {
+      const curr = currentIndex();
+      if (curr === 0) {
+        scrollToIndex(items.length - 1, false); // teleport al final (sin animación)
+      } else {
+        scrollToIndex(curr - 1);
+      }
+    });
+    next.addEventListener('click', () => {
+      const curr = currentIndex();
+      if (curr === items.length - 1) {
+        scrollToIndex(0, false); // teleport al inicio
+      } else {
+        scrollToIndex(curr + 1);
+      }
+    });
   });
 }
 document.addEventListener('DOMContentLoaded', initCarousels);
