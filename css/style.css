@@ -465,12 +465,13 @@ a.card:hover .card__name{color:var(--amber-600)}
 @media (max-width:480px){.footer__grid{grid-template-columns:1fr}}
 
 /* ---------- Page hero (subpáginas) ---------- */
-.page-hero{background:linear-gradient(135deg,var(--azul) 0%,var(--azul-900) 100%);color:var(--blanco);padding:72px 0 56px;position:relative;overflow:hidden}
+.page-hero{background:linear-gradient(135deg,var(--azul) 0%,var(--azul-900) 100%);color:var(--blanco);padding:72px 0 56px;position:relative;overflow:hidden;text-align:center}
 .page-hero::after{content:"";position:absolute;right:-100px;bottom:-100px;width:300px;height:300px;background:radial-gradient(circle,var(--amber) 0%,transparent 65%);opacity:.18}
 .page-hero h1{color:var(--blanco);margin-bottom:12px}
-.page-hero p{color:rgba(255,255,255,.85);max-width:60ch;font-size:1.1rem;margin:0}
-.breadcrumb{font-size:.85rem;color:rgba(255,255,255,.7);margin-bottom:14px}
+.page-hero p{color:rgba(255,255,255,.85);max-width:60ch;font-size:1.1rem;margin:0 auto}
+.breadcrumb{font-size:.85rem;color:rgba(255,255,255,.7);margin-bottom:14px;display:inline-block}
 .breadcrumb a{color:var(--amber)}
+@media (max-width:600px){.page-hero{text-align:left}.page-hero p{margin:0}.breadcrumb{display:block}}
 
 /* ---------- Avisos / banners pequeños ---------- */
 .notice{background:var(--amber-50);border-left:4px solid var(--amber);padding:16px 20px;border-radius:8px;margin:20px 0;color:var(--azul)}
