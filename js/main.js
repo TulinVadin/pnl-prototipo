@@ -48,18 +48,19 @@ document.addEventListener('DOMContentLoaded', () => {
     updateHeader();
   }
 
-  // Auto-reveal
+  // Auto-reveal (sin delays en mobile para que cards aparezcan rápido)
+  const isMobile = window.matchMedia('(max-width: 760px)').matches;
   document.querySelectorAll(
-    '.section > .container > *, .hero__inner > *, .page-hero > .container > *, .card, .principio, .area, .region, .pub, .don, .step, .stats__item'
+    '.section > .container > *, .hero__inner > *, .page-hero > .container > *, .card, .principio, .area, .region, .pub, .don, .step, .stats__item, .news-card'
   ).forEach((el, i) => {
     el.classList.add('reveal');
-    if (['card','principio','region','pub','don','step','stats__item'].some(c => el.classList.contains(c))) {
+    if (!isMobile && ['card','principio','region','pub','don','step','stats__item','news-card'].some(c => el.classList.contains(c))) {
       el.classList.add('delay-' + ((i % 4) + 1));
     }
   });
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: isMobile ? 0.05 : 0.12, rootMargin: isMobile ? '0px 0px 100px 0px' : '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   // ======= Header: Zona militantes O chip de usuario =======
