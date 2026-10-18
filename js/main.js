@@ -30,16 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (href === path) a.setAttribute('aria-current', 'page');
   });
 
-  // Reemplaza el logo horizontal con isotipo+horizontal (para swap en mobile)
+  // Reemplaza el logo con 3 variantes: navy (default white bg), white (scrolled dark bg), iso (mobile)
   document.querySelectorAll('.nav__brand').forEach(brand => {
     const existing = brand.querySelector('img');
-    if (existing && !brand.querySelector('.brand-i')) {
-      existing.classList.add('brand-h');
-      const iso = document.createElement('img');
-      iso.src = 'assets/logos/pnl-isotipo.png';
-      iso.className = 'brand-i';
-      iso.alt = 'PNL';
-      brand.appendChild(iso);
+    if (existing && !brand.querySelector('.brand-navy')) {
+      existing.remove();
+      brand.innerHTML = `
+        <img class="brand-navy" src="assets/logos/pnl-logo-navy.png" alt="Partido Nacional Libertario">
+        <img class="brand-white" src="assets/logos/pnl-logo-white.png" alt="Partido Nacional Libertario">
+        <img class="brand-i" src="assets/logos/pnl-isotipo.png" alt="PNL">
+      `;
     }
   });
 
@@ -385,8 +385,9 @@ function buildMobileMenu(){
 
 // ---- Carousels con flechas (prev/next circular) ----
 function initCarousels(){
-  if (!window.matchMedia('(max-width: 760px)').matches) return;
-  document.querySelectorAll('.grid-carousel').forEach(carousel => {
+  const isMobile = window.matchMedia('(max-width: 760px)').matches;
+  const selector = isMobile ? '.grid-carousel, .carousel-always' : '.carousel-always';
+  document.querySelectorAll(selector).forEach(carousel => {
     if (carousel.dataset.carouselInit) return;
     carousel.dataset.carouselInit = '1';
     const items = Array.from(carousel.children).filter(c => c.classList.contains('card') || c.classList.contains('principio') || c.classList.contains('news-card') || c.tagName === 'ARTICLE' || c.tagName === 'A' || c.tagName === 'DIV');
