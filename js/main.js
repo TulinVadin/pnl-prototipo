@@ -288,60 +288,56 @@ function buildMobileMenu(){
   const burger = document.querySelector('.nav__burger');
   if (!sourceLinks || !burger) return;
 
-  // Si ya existe, no duplicar
   if (document.querySelector('.mobile-menu')) return;
 
-  // Construir items del menú mobile desde el nav__links
+  const currentPage = location.pathname.split('/').pop() || 'index.html';
+
   let menuHtml = '<ul>';
   sourceLinks.querySelectorAll(':scope > li').forEach(li => {
     const link = li.querySelector(':scope > a');
     const sub = li.querySelector(':scope > ul.nav__sub');
     const label = link ? link.textContent.trim() : '';
     const href = link ? link.getAttribute('href') : '#';
-    const activeCls = (href === (location.pathname.split('/').pop() || 'index.html')) ? ' active' : '';
+    const isToggleOnly = (!href || href === '#');
+    const activeCls = (href === currentPage) ? ' active' : '';
+
     if (sub) {
-      // Item con submenu: botón toggle en mobile
       let subItems = '<ul>';
       sub.querySelectorAll(':scope > li > a').forEach(sa => {
         subItems += `<li><a href="${sa.getAttribute('href')}">${sa.textContent.trim()}</a></li>`;
       });
       subItems += '</ul>';
-      menuHtml += `<li class="has-sub-m${activeCls}"><button type="button">${label}<span class="caret"></span></button>${subItems}</li>`;
+      if (isToggleOnly) {
+        menuHtml += `<li class="has-sub-m toggle-only"><button type="button">${label}<span class="caret"></span></button>${subItems}</li>`;
+      } else {
+        menuHtml += `<li class="has-sub-m"><div class="nav-split"><a href="${href}" class="${activeCls.trim()}">${label}</a><button type="button" aria-label="Abrir submenu"><span class="caret"></span></button></div>${subItems}</li>`;
+      }
     } else {
       menuHtml += `<li><a href="${href}" class="${activeCls.trim()}">${label}</a></li>`;
     }
   });
   menuHtml += '</ul>';
 
-  // Bloque usuario (si logueado)
-  let userBlock = '';
+  // CTAs según sesión
+  let ctasBlock = '';
   if (PNL.isLoggedIn()) {
-    const u = PNL.getUser();
-    userBlock = `
-      <div class="mobile-menu__user">
-        <div class="mobile-menu__user__av">${PNL.initials(u.name)}</div>
-        <div class="mobile-menu__user__txt">
-          <strong>${escapeHtml(u.name)}</strong>
-          <span>Zona militantes activa</span>
-        </div>
-        <button class="mobile-menu__user__logout" type="button">Salir</button>
+    ctasBlock = `
+      <div class="mobile-menu__ctas">
+        <a href="academia.html" class="btn btn-primary">Entrar a la Academia</a>
+        <a href="elecciones-internas.html" class="btn btn-outline">Elecciones internas</a>
+      </div>
+      <button class="mobile-menu__logout" type="button">Cerrar sesión</button>`;
+  } else {
+    ctasBlock = `
+      <div class="mobile-menu__ctas">
+        <a href="hazte-militante.html" class="btn btn-primary">Hazte militante</a>
+        <a href="donaciones.html" class="btn btn-outline">Donar</a>
+        <a href="login.html" class="btn-militante" style="justify-content:center;text-decoration:none;padding:12px;border-radius:999px;font-weight:700">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6a5 5 0 00-10 0v2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V10a2 2 0 00-2-2zM9 6a3 3 0 016 0v2H9V6z"/></svg>
+          Zona militantes
+        </a>
       </div>`;
   }
-
-  // CTAs
-  const ctasBlock = PNL.isLoggedIn() ? `
-    <div class="mobile-menu__ctas">
-      <a href="academia.html" class="btn btn-primary">Entrar a la Academia</a>
-      <a href="elecciones-internas.html" class="btn btn-outline">Elecciones internas</a>
-    </div>` : `
-    <div class="mobile-menu__ctas">
-      <a href="hazte-militante.html" class="btn btn-primary">Hazte militante</a>
-      <a href="donaciones.html" class="btn btn-outline">Donar</a>
-      <a href="login.html" class="btn-militante" style="justify-content:center;text-decoration:none;padding:14px;border-radius:999px;font-weight:700">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6a5 5 0 00-10 0v2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V10a2 2 0 00-2-2zM9 6a3 3 0 016 0v2H9V6z"/></svg>
-        Zona militantes
-      </a>
-    </div>`;
 
   const socialBlock = `
     <div class="mobile-menu__social">
@@ -355,17 +351,9 @@ function buildMobileMenu(){
 
   const overlay = document.createElement('div');
   overlay.className = 'mobile-menu';
-  overlay.innerHTML = `
-    <div class="mobile-menu__inner">
-      ${userBlock}
-      ${menuHtml}
-      ${ctasBlock}
-      ${socialBlock}
-    </div>
-  `;
+  overlay.innerHTML = `<div class="mobile-menu__inner">${menuHtml}${ctasBlock}${socialBlock}</div>`;
   document.body.appendChild(overlay);
 
-  // Burger toggle
   burger.addEventListener('click', () => {
     const open = overlay.classList.toggle('open');
     burger.classList.toggle('open', open);
@@ -373,19 +361,19 @@ function buildMobileMenu(){
     burger.setAttribute('aria-expanded', open);
   });
 
-  // Submenu toggle en mobile
-  overlay.querySelectorAll('.has-sub-m > button').forEach(btn => {
+  // Toggle submenu — tanto en .toggle-only > button como en .nav-split > button
+  overlay.querySelectorAll('.has-sub-m .nav-split > button, .has-sub-m.toggle-only > button').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      btn.parentElement.classList.toggle('open');
+      e.preventDefault();
+      const li = btn.closest('.has-sub-m');
+      li.classList.toggle('open');
     });
   });
 
-  // Logout en mobile
-  const logoutBtn = overlay.querySelector('.mobile-menu__user__logout');
+  const logoutBtn = overlay.querySelector('.mobile-menu__logout');
   if (logoutBtn) logoutBtn.addEventListener('click', () => { PNL.logout(); location.reload(); });
 
-  // Cerrar al navegar
   overlay.querySelectorAll('a[href]').forEach(a => {
     a.addEventListener('click', () => {
       overlay.classList.remove('open');
@@ -394,3 +382,53 @@ function buildMobileMenu(){
     });
   });
 }
+
+// ---- Carousels con flechas (prev/next circular) ----
+function initCarousels(){
+  if (!window.matchMedia('(max-width: 760px)').matches) return;
+  document.querySelectorAll('.grid-carousel').forEach(carousel => {
+    if (carousel.dataset.carouselInit) return;
+    carousel.dataset.carouselInit = '1';
+    const items = Array.from(carousel.children).filter(c => c.classList.contains('card') || c.classList.contains('principio') || c.classList.contains('news-card') || c.tagName === 'ARTICLE' || c.tagName === 'A' || c.tagName === 'DIV');
+    if (items.length === 0) return;
+    // Envolver en wrap si no está
+    let wrap = carousel.parentElement;
+    if (!wrap.classList.contains('carousel-wrap')) {
+      wrap = document.createElement('div');
+      wrap.className = 'carousel-wrap';
+      carousel.parentNode.insertBefore(wrap, carousel);
+      wrap.appendChild(carousel);
+    }
+    // Flechas
+    const prev = document.createElement('button');
+    prev.className = 'carousel-arrow carousel-arrow--prev';
+    prev.setAttribute('aria-label','Anterior');
+    prev.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
+    const next = document.createElement('button');
+    next.className = 'carousel-arrow carousel-arrow--next';
+    next.setAttribute('aria-label','Siguiente');
+    next.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
+    wrap.appendChild(prev);
+    wrap.appendChild(next);
+
+    const scrollToIndex = (idx) => {
+      const total = items.length;
+      const i = ((idx % total) + total) % total; // circular
+      items[i].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+    };
+    const currentIndex = () => {
+      const scrollLeft = carousel.scrollLeft;
+      const center = scrollLeft + carousel.clientWidth/2;
+      let best = 0, bestDist = Infinity;
+      items.forEach((it, i) => {
+        const itCenter = it.offsetLeft + it.offsetWidth/2;
+        const d = Math.abs(itCenter - center);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      return best;
+    };
+    prev.addEventListener('click', () => scrollToIndex(currentIndex() - 1));
+    next.addEventListener('click', () => scrollToIndex(currentIndex() + 1));
+  });
+}
+document.addEventListener('DOMContentLoaded', initCarousels);
