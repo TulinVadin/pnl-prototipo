@@ -55,30 +55,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // ======= Floating button (Zona Militantes) =======
-  const fab = document.createElement('div');
-  fab.className = 'fab';
-  fab.innerHTML = `
-    <div class="fab__panel">
-      <h4>Zona Militantes</h4>
-      <p>Accede a contenido exclusivo con tu cuenta.</p>
-      <a href="academia.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.9V17h2V9L12 3z"/></svg>Academia Nacional Libertaria</a>
-      <a href="elecciones-internas.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-9 14l-5-5 1.4-1.4L10 14.2l7.6-7.6L19 8l-9 9z"/></svg>Elecciones internas</a>
-      <hr>
-      <a href="login.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8a2 2 0 002-2V5a2 2 0 00-2-2h-8v2h8v14z"/></svg>Iniciar sesión</a>
-    </div>
-    <button class="fab__btn" aria-label="Zona militantes" title="Zona militantes">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm0 2a3 3 0 013 3v3H9V7a3 3 0 013-3zm0 11a2 2 0 110 4 2 2 0 010-4z"/></svg>
-    </button>
-  `;
-  document.body.appendChild(fab);
-  const fabBtn = fab.querySelector('.fab__btn');
-  fabBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    fab.classList.toggle('open');
-  });
-  document.addEventListener('click', (e) => {
-    if (!fab.contains(e.target)) fab.classList.remove('open');
+  // ======= Zona Militantes en header (botón + panel) =======
+  const navCta = document.querySelector('.nav__cta');
+  if (navCta) {
+    const militante = document.createElement('div');
+    militante.className = 'nav__militante';
+    militante.innerHTML = `
+      <button class="nav__militante-btn" aria-label="Zona militantes" title="Zona militantes">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6a5 5 0 00-10 0v2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V10a2 2 0 00-2-2zM9 6a3 3 0 016 0v2H9V6zm3 11a2 2 0 110-4 2 2 0 010 4z"/></svg>
+        <span>Zona militantes</span>
+      </button>
+      <div class="nav__militante-panel">
+        <h4>Zona Militantes</h4>
+        <p>Accede a contenido exclusivo con tu cuenta.</p>
+        <a href="academia.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.9V17h2V9L12 3z"/></svg>Academia Nacional Libertaria</a>
+        <a href="elecciones-internas.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-9 14l-5-5 1.4-1.4L10 14.2l7.6-7.6L19 8l-9 9z"/></svg>Elecciones internas</a>
+        <hr>
+        <a href="login.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8a2 2 0 002-2V5a2 2 0 00-2-2h-8v2h8v14z"/></svg>Iniciar sesión</a>
+      </div>
+    `;
+    navCta.insertBefore(militante, navCta.firstChild);
+    const mBtn = militante.querySelector('.nav__militante-btn');
+    mBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      militante.classList.toggle('open');
+    });
+    document.addEventListener('click', (e) => {
+      if (!militante.contains(e.target)) militante.classList.remove('open');
+    });
+  }
+
+  // ======= Modal de video (reutilizable) =======
+  document.querySelectorAll('[data-video]').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const src = trigger.getAttribute('data-video');
+      const vm = document.createElement('div');
+      vm.className = 'vmodal';
+      vm.innerHTML = `
+        <div class="vmodal__wrap" role="dialog" aria-modal="true">
+          <button class="vmodal__close" aria-label="Cerrar video">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <video src="${src}" controls autoplay playsinline></video>
+        </div>
+      `;
+      document.body.appendChild(vm);
+      requestAnimationFrame(() => vm.classList.add('open'));
+      const closeFn = () => {
+        vm.classList.remove('open');
+        setTimeout(() => vm.remove(), 300);
+        document.removeEventListener('keydown', escClose);
+      };
+      const escClose = (ev) => { if (ev.key === 'Escape') closeFn(); };
+      vm.querySelector('.vmodal__close').addEventListener('click', closeFn);
+      vm.addEventListener('click', (ev) => { if (ev.target === vm) closeFn(); });
+      document.addEventListener('keydown', escClose);
+    });
   });
 
   // ======= Modal de bienvenida (Academia) - solo home, solo una vez por sesión =======

@@ -614,33 +614,59 @@ a.card:hover .card__name{color:var(--amber-600)}
 .modal__close:hover{background:rgba(255,255,255,.3)}
 .modal__close svg{width:16px;height:16px}
 
-/* ---------- Floating button (zona militantes) ---------- */
-.fab{position:fixed;bottom:22px;right:22px;z-index:150}
-.fab__btn{
-  width:60px;height:60px;border-radius:50%;background:var(--amber);color:var(--azul);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  box-shadow:0 10px 30px rgba(251,162,17,.4);
-  transition:transform .3s ease, box-shadow .3s ease;
-  animation:fab-float 4s ease-in-out infinite;
+/* ---------- Botón Zona Militantes en header ---------- */
+.nav__militante{position:relative}
+.nav__militante-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:999px;
+  background:transparent;color:var(--azul);
+  border:1.5px solid var(--amber);font-weight:700;font-size:.88rem;
+  cursor:pointer;transition:all .2s;white-space:nowrap;
 }
-.fab__btn:hover{transform:scale(1.08);box-shadow:0 14px 36px rgba(251,162,17,.55)}
-.fab__btn svg{width:26px;height:26px}
-.fab__btn::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--amber);opacity:.4;animation:fab-pulse 2.4s ease-out infinite}
-@keyframes fab-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes fab-pulse{0%{transform:scale(.9);opacity:.6}80%,100%{transform:scale(1.5);opacity:0}}
-.fab__panel{
-  position:absolute;bottom:76px;right:0;width:280px;background:#fff;
-  border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.25);
-  padding:18px;opacity:0;transform:translateY(10px) scale(.95);pointer-events:none;
-  transition:opacity .25s, transform .25s;border:1px solid var(--gris-100);
+.nav__militante-btn:hover{background:var(--amber);color:var(--azul)}
+.nav__militante-btn svg{width:16px;height:16px}
+.header.scrolled .nav__militante-btn{color:#fff;border-color:var(--amber)}
+.header.scrolled .nav__militante-btn:hover{background:var(--amber);color:var(--azul)}
+.nav__militante-panel{
+  position:absolute;top:calc(100% + 10px);right:0;width:300px;background:#fff;
+  border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25);
+  padding:18px;opacity:0;transform:translateY(-10px);pointer-events:none;
+  transition:opacity .25s, transform .25s;border:1px solid var(--gris-100);z-index:60;
 }
-.fab.open .fab__panel{opacity:1;transform:none;pointer-events:auto}
-.fab__panel h4{color:var(--azul);font-size:.95rem;margin-bottom:4px;font-family:var(--fs-serif);font-weight:700}
-.fab__panel p{font-size:.82rem;color:var(--gris-700);margin:0 0 14px}
-.fab__panel a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:var(--azul);font-size:.88rem;font-weight:600;transition:background .2s}
-.fab__panel a:hover{background:var(--amber-50);color:var(--azul)}
-.fab__panel a svg{width:16px;height:16px;color:var(--amber-600);flex-shrink:0}
-.fab__panel hr{border:0;height:1px;background:var(--gris-100);margin:10px 0}
+.nav__militante.open .nav__militante-panel{opacity:1;transform:none;pointer-events:auto}
+.nav__militante-panel h4{color:var(--azul);font-size:.95rem;margin-bottom:4px;font-family:var(--fs-serif);font-weight:700}
+.nav__militante-panel p{font-size:.82rem;color:var(--gris-700);margin:0 0 14px}
+.nav__militante-panel a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:var(--azul);font-size:.88rem;font-weight:600;transition:background .2s}
+.nav__militante-panel a:hover{background:var(--amber-50);color:var(--azul)}
+.nav__militante-panel a svg{width:16px;height:16px;color:var(--amber-600);flex-shrink:0}
+.nav__militante-panel hr{border:0;height:1px;background:var(--gris-100);margin:10px 0}
+
+/* ---------- Modal de video (vertical) ---------- */
+.vmodal{position:fixed;inset:0;z-index:220;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);opacity:0;transition:opacity .3s ease}
+.vmodal.open{display:flex;opacity:1}
+.vmodal__wrap{position:relative;max-width:420px;width:100%;max-height:92vh;aspect-ratio:9/16;background:#000;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);transform:scale(.95);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.vmodal.open .vmodal__wrap{transform:none}
+.vmodal__wrap video{width:100%;height:100%;object-fit:cover;display:block}
+.vmodal__close{
+  position:absolute;top:12px;right:12px;z-index:3;
+  width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.55);
+  color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  backdrop-filter:blur(6px);transition:background .2s, transform .2s;
+  border:1px solid rgba(255,255,255,.2);
+}
+.vmodal__close:hover{background:rgba(0,0,0,.8);transform:scale(1.08)}
+.vmodal__close svg{width:18px;height:18px}
+
+/* Botón "ver video" en línea */
+.video-cue{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(251,162,17,.15);border:1px solid rgba(251,162,17,.4);
+  color:var(--amber-600);padding:10px 16px;border-radius:999px;
+  font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s;
+  margin-top:6px;
+}
+.video-cue:hover{background:var(--amber);color:var(--azul);border-color:var(--amber)}
+.video-cue svg{width:16px;height:16px}
 
 /* ---------- Lista de aportes (home) ---------- */
 .aporte-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:22px}

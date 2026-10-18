@@ -32,7 +32,6 @@
           <ul class="nav__sub">
             <li><a href="areas.html#juventud">Juventud Nacional Libertaria</a></li>
             <li><a href="areas.html#mujeres">Mujeres Nacional Libertarias</a></li>
-            <li><a href="academia.html">Academia Nacional Libertaria</a></li>
           </ul>
         </li>
         <li><a href="publicaciones.html">Publicaciones</a></li>
@@ -57,44 +56,55 @@
 </section>
 
 <section class="section">
-  <div class="container two-col two-col--sidebar" style="align-items:start">
-    <div>
+  <div class="container">
+    <div class="center section-head" style="max-width:800px;margin-left:auto;margin-right:auto">
       <span class="eyebrow">¿Qué significa militar?</span>
       <h2>Comprometerte con una causa, no con un formulario</h2>
-      <p>Afiliarte al Partido Nacional Libertario te convierte en parte oficial de nuestra orgánica. Puedes participar en elecciones internas, postular a cargos partidarios, representar al partido y proponer ideas. También asumes compromisos: respetar los estatutos, actuar conforme a nuestros principios y contribuir a la vida interna del partido.</p>
+      <p class="lead" style="margin:0 auto">Afiliarte al Partido Nacional Libertario te convierte en parte oficial de nuestra orgánica. Puedes participar en elecciones internas, postular a cargos partidarios, representar al partido y proponer ideas.</p>
+    </div>
 
-      <h3 style="margin-top:28px">¿Qué obtienes al militar?</h3>
-      <ul class="check-list" style="margin-top:16px">
-        <li>Derecho a voz y voto en elecciones internas del partido.</li>
-        <li>Posibilidad de ser candidato en elecciones populares bajo nuestro sello.</li>
-        <li>Acceso a instancias de formación política, debate y encuentros nacionales.</li>
-        <li>Red de contacto con militantes y dirigentes en todas las regiones.</li>
-        <li>Participación directa en la construcción del Chile que queremos.</li>
-      </ul>
-
-      <h3 id="requisitos" style="margin-top:36px">Requisitos del Servel</h3>
-      <p>El Servicio Electoral (Servel) regula la afiliación a partidos políticos. Para inscribirte en el PNL necesitas:</p>
-      <ul class="check-list">
-        <li>Ser chileno o chilena mayor de 18 años.</li>
-        <li>Tener habilitado tu derecho a sufragio.</li>
-        <li>Contar con ClaveÚnica vigente (es la que valida tu identidad en el portal del Servel).</li>
-        <li>No estar afiliado a otro partido político (debes desafiliarte previamente si lo estás).</li>
-      </ul>
-
-      <div class="notice">
-        <strong>Importante:</strong> La afiliación se formaliza en el portal del Servel, no en este sitio. Nosotros te preparamos y te acompañamos en el proceso; la firma final es tuya, con tu ClaveÚnica.
+    <div class="grid grid-2" style="gap:28px;margin-top:24px">
+      <div style="background:var(--gris-50);padding:28px;border-radius:14px;border-top:4px solid var(--amber)">
+        <h3 style="color:var(--azul);margin-bottom:14px">¿Qué obtienes al militar?</h3>
+        <ul class="check-list">
+          <li>Derecho a voz y voto en elecciones internas del partido.</li>
+          <li>Posibilidad de ser candidato en elecciones populares bajo nuestro sello.</li>
+          <li>Acceso a instancias de formación política, debate y encuentros nacionales.</li>
+          <li>Red de contacto con militantes y dirigentes en todas las regiones.</li>
+          <li>Participación directa en la construcción del Chile que queremos.</li>
+        </ul>
+      </div>
+      <div id="requisitos" style="background:var(--gris-50);padding:28px;border-radius:14px;border-top:4px solid var(--amber)">
+        <h3 style="color:var(--azul);margin-bottom:14px">Requisitos del Servel</h3>
+        <ul class="check-list">
+          <li>Ser chileno o chilena mayor de 18 años.</li>
+          <li>Tener habilitado tu derecho a sufragio.</li>
+          <li>Contar con ClaveÚnica vigente (es la que valida tu identidad en el portal del Servel).</li>
+          <li>No estar afiliado a otro partido político (debes desafiliarte previamente si lo estás).</li>
+        </ul>
       </div>
     </div>
-    <aside>
-      <div class="cta-block" style="grid-template-columns:1fr;padding:32px">
-        <div>
-          <h3 style="color:#fff">¿Listo para firmar?</h3>
-          <p>El trámite dura menos de 5 minutos en el portal del Servel.</p>
-          <a href="https://portalpartidos.servel.cl/auth/login" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:12px;width:100%;justify-content:center">Ir al portal del Servel</a>
-          <p style="font-size:.82rem;color:rgba(255,255,255,.7);margin-top:12px">Inicia sesión con tu ClaveÚnica y busca "Partido Nacional Libertario".</p>
-        </div>
-      </div>
-    </aside>
+
+    <div class="notice" style="margin-top:28px">
+      <strong>Importante:</strong> La afiliación se formaliza en el portal del Servel, no en este sitio. Nosotros te preparamos y te acompañamos en el proceso; la firma final es tuya, con tu ClaveÚnica.
+    </div>
+  </div>
+</section>
+
+<!-- Franja CTA horizontal: ir al Servel + ver video -->
+<section class="strip-cta">
+  <div class="container strip-cta__inner">
+    <div>
+      <span class="strip-cta__eyebrow">¿Listo para firmar?</span>
+      <h2>El trámite dura menos de 5 minutos en el portal del Servel</h2>
+      <button class="video-cue" data-video="assets/video/firmar-servel.mp4" type="button" style="margin-top:12px">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        ¿Cómo firmar en el Servel? Ver video
+      </button>
+    </div>
+    <div class="strip-cta__actions">
+      <a href="https://portalpartidos.servel.cl/auth/login" target="_blank" rel="noopener" class="btn btn-primary">Ir al portal del Servel</a>
+    </div>
   </div>
 </section>
 
