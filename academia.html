@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Academia Nacional Libertaria 2026 · PNL</title>
+<meta name="description" content="Formación política y doctrinal abierta a militantes, simpatizantes y ciudadanos. Clases semanales transmitidas en vivo por YouTube.">
+<link rel="icon" href="assets/logos/pnl-isotipo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ---- Academia ---- */
+.academia-hero{background:linear-gradient(135deg,var(--azul-900) 0%,var(--azul) 100%);color:#fff;padding:88px 0 72px;position:relative;overflow:hidden}
+.academia-hero::before{content:"";position:absolute;right:-80px;top:-60px;width:400px;height:400px;background-image:url('assets/logos/pnl-isotipo.png');background-repeat:no-repeat;background-size:contain;opacity:.07}
+.academia-hero::after{content:"";position:absolute;left:-120px;bottom:-120px;width:300px;height:300px;background:radial-gradient(circle,var(--amber) 0%,transparent 65%);opacity:.2}
+.academia-hero__inner{position:relative;z-index:1;max-width:720px}
+.academia-hero h1{color:#fff;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05;margin:14px 0 16px}
+.academia-hero h1 em{font-style:normal;color:var(--amber)}
+.academia-hero p{color:rgba(255,255,255,.88);font-size:1.15rem;max-width:60ch;margin:0}
+.academia-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;background:rgba(251,162,17,.15);border:1px solid rgba(251,162,17,.4);border-radius:999px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);font-weight:700}
+.academia-badge::before{content:"";width:8px;height:8px;background:var(--amber);border-radius:50%;animation:pulse 2s infinite}
+
+.live-banner{background:linear-gradient(90deg,#C8102E 0%,#8B0000 100%);color:#fff;padding:18px 0;position:relative;overflow:hidden}
+.live-banner::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#fff}
+.live-banner__inner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;position:relative;z-index:1}
+.live-banner__left{display:flex;align-items:center;gap:14px}
+.live-dot{width:10px;height:10px;border-radius:50%;background:#fff;animation:pulse 1.5s infinite}
+.live-banner strong{font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:.85rem}
+.live-banner span{font-size:.95rem;opacity:.9}
+.live-banner a{background:#fff;color:#8B0000;padding:10px 20px;border-radius:999px;font-weight:700;font-size:.88rem;display:inline-flex;align-items:center;gap:8px;transition:transform .2s}
+.live-banner a:hover{transform:translateY(-1px);color:#8B0000}
+
+.clases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.clase{background:#fff;border:1px solid var(--gris-100);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:all .3s ease;text-decoration:none;color:inherit;position:relative}
+.clase:hover{transform:translateY(-6px);box-shadow:var(--sombra-md);border-color:var(--amber)}
+.clase__thumb{aspect-ratio:16/9;background:linear-gradient(135deg,var(--azul) 0%,var(--azul-900) 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.clase__thumb::before{content:"";position:absolute;inset:0;background-image:url('assets/logos/pnl-isotipo.png');background-repeat:no-repeat;background-size:40%;background-position:center;opacity:.08}
+.clase__play{width:60px;height:60px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(251,162,17,.4);transition:transform .3s;z-index:1}
+.clase:hover .clase__play{transform:scale(1.1)}
+.clase__play svg{width:24px;height:24px;color:var(--azul);margin-left:3px}
+.clase__num{position:absolute;top:12px;left:14px;background:rgba(0,0,0,.4);color:#fff;padding:4px 12px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;backdrop-filter:blur(4px);z-index:2}
+.clase__date{position:absolute;top:12px;right:14px;background:var(--amber);color:var(--azul);padding:4px 10px;border-radius:6px;font-size:.75rem;font-weight:700;z-index:2}
+.clase__body{padding:20px;flex:1;display:flex;flex-direction:column;gap:10px}
+.clase__ttl{font-family:var(--fs-serif);font-weight:700;color:var(--azul);font-size:1.05rem;line-height:1.3;margin:0}
+.clase__lnk{color:var(--amber-600);font-size:.86rem;font-weight:700;display:inline-flex;align-items:center;gap:6px;margin-top:auto;transition:gap .2s}
+.clase__lnk svg{width:14px;height:14px}
+.clase:hover .clase__lnk{gap:10px}
+.clase--placeholder{opacity:.6;pointer-events:none}
+.clase--placeholder .clase__play{background:var(--gris-200)}
+.clase--placeholder .clase__play svg{color:var(--gris-700)}
+
+.info-card{background:var(--gris-50);border-left:4px solid var(--amber);padding:28px;border-radius:12px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.info-card__ico{width:52px;height:52px;border-radius:12px;background:var(--amber);color:var(--azul);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.info-card__ico svg{width:28px;height:28px}
+.info-card__body{flex:1;min-width:240px}
+.info-card h3{color:var(--azul);margin-bottom:6px}
+.info-card p{margin:0;color:var(--gris-700)}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <nav class="nav nav__mobile">
+      <a class="nav__brand" href="index.html"><img src="assets/logos/pnl-horizontal-blanco.png" alt="PNL"></a>
+      <ul class="nav__links">
+        <li><a href="index.html">Inicio</a></li>
+        <li class="has-sub"><a href="nosotros.html">Nosotros</a>
+          <ul class="nav__sub">
+            <li><a href="nosotros.html#principios">Principios</a></li>
+            <li><a href="nosotros.html#directiva">Directiva Nacional</a></li>
+            <li><a href="directivas-regionales.html">Directivas Regionales</a></li>
+            <li><a href="nosotros.html#estatutos">Estatutos</a></li>
+          </ul>
+        </li>
+        <li><a href="autoridades-electas.html">Autoridades electas</a></li>
+        <li class="has-sub"><a href="areas.html">Áreas</a>
+          <ul class="nav__sub">
+            <li><a href="areas.html#juventud">Juventud Nacional Libertaria</a></li>
+            <li><a href="areas.html#mujeres">Mujeres Nacional Libertarias</a></li>
+            <li><a href="academia.html">Academia Nacional Libertaria</a></li>
+          </ul>
+        </li>
+        <li><a href="publicaciones.html">Publicaciones</a></li>
+        <li><a href="donaciones.html">Donaciones</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="donaciones.html" class="btn btn-outline btn-sm">Donar</a>
+        <a href="hazte-militante.html" class="btn btn-primary btn-sm">Hazte militante</a>
+        <button class="nav__burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="academia-hero">
+  <div class="container">
+    <div class="breadcrumb" style="color:rgba(255,255,255,.7);margin-bottom:8px"><a href="index.html" style="color:var(--amber)">Inicio</a> / <a href="areas.html" style="color:var(--amber)">Áreas</a> / Academia Nacional Libertaria</div>
+    <div class="academia-hero__inner">
+      <span class="academia-badge">Edición 2026</span>
+      <h1>Academia <em>Nacional Libertaria</em></h1>
+      <p>Formación política y doctrinal abierta a militantes, simpatizantes y a todo chileno que quiera estudiar las ideas de la libertad. Clases semanales transmitidas en vivo por YouTube, con material de calidad y profesores comprometidos.</p>
+    </div>
+  </div>
+</section>
+
+<section class="live-banner">
+  <div class="container live-banner__inner">
+    <div class="live-banner__left">
+      <span class="live-dot"></span>
+      <strong>En vivo</strong>
+      <span>Clase semanal transmitida por YouTube — martes y miércoles 20:00 hrs</span>
+    </div>
+    <a href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M23 7.5s-.2-1.6-.9-2.3c-.8-.9-1.8-.9-2.2-1C16.6 4 12 4 12 4s-4.6 0-7.9.3c-.4 0-1.4.1-2.2 1-.7.7-.9 2.3-.9 2.3S.8 9.3.8 11.2v1.6c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1 1.8.2 7.7.2 7.7.2s4.6 0 7.9-.3c.4 0 1.4-.1 2.2-1 .7-.7.9-2.3.9-2.3s.2-1.8.2-3.7v-1.6c0-1.9-.2-3.7-.2-3.7zM9.7 15V8.5l6.2 3.2L9.7 15z"/></svg>
+      Ver canal
+    </a>
+  </div>
+</section>
+
+<section class="section section--sm">
+  <div class="container">
+    <div class="info-card">
+      <div class="info-card__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.9V17h2V9L12 3z"/></svg></div>
+      <div class="info-card__body">
+        <h3>¿Qué es la Academia?</h3>
+        <p>Un espacio formativo abierto donde abordamos los pilares del pensamiento libertario: filosofía política, economía de libre mercado, historia de Chile, sistema electoral, batalla cultural y mucho más. Participación 100% gratuita, cualquier chileno puede asistir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="center section-head">
+      <span class="eyebrow">Programa 2026</span>
+      <h2>Calendario de clases</h2>
+      <p class="lead" style="margin:0 auto">Diez clases semanales. Haz clic en cualquiera para verla en YouTube.</p>
+    </div>
+
+    <div class="clases-grid">
+
+      <a class="clase" href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+        <div class="clase__thumb">
+          <span class="clase__num">Clase 1</span>
+          <span class="clase__date">30 sept 2026</span>
+          <div class="clase__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="clase__body">
+          <h3 class="clase__ttl">Introducción a la Academia Nacional Libertaria</h3>
+          <span class="clase__lnk">Ver en YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="clase" href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+        <div class="clase__thumb">
+          <span class="clase__num">Clase 2</span>
+          <span class="clase__date">7 oct 2026</span>
+          <div class="clase__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="clase__body">
+          <h3 class="clase__ttl">El espíritu Nacional Libertario</h3>
+          <span class="clase__lnk">Ver en YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="clase" href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+        <div class="clase__thumb">
+          <span class="clase__num">Clase 3</span>
+          <span class="clase__date">14 oct 2026</span>
+          <div class="clase__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="clase__body">
+          <h3 class="clase__ttl">El sistema electoral: las reglas del juego</h3>
+          <span class="clase__lnk">Ver en YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="clase" href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+        <div class="clase__thumb">
+          <span class="clase__num">Clase 4</span>
+          <span class="clase__date">15 oct 2026</span>
+          <div class="clase__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="clase__body">
+          <h3 class="clase__ttl">Fundamentos del libertarismo</h3>
+          <span class="clase__lnk">Ver en YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="clase" href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+        <div class="clase__thumb">
+          <span class="clase__num">Clase 5</span>
+          <span class="clase__date">21 oct 2026</span>
+          <div class="clase__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="clase__body">
+          <h3 class="clase__ttl">Clase 5 — Título por confirmar</h3>
+          <span class="clase__lnk">Ver en YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="clase" href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+        <div class="clase__thumb">
+          <span class="clase__num">Clase 6</span>
+          <span class="clase__date">22 oct 2026</span>
+          <div class="clase__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="clase__body">
+          <h3 class="clase__ttl">Clase 6 — Título por confirmar</h3>
+          <span class="clase__lnk">Ver en YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="clase" href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+        <div class="clase__thumb">
+          <span class="clase__num">Clase 7</span>
+          <span class="clase__date">28 oct 2026</span>
+          <div class="clase__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="clase__body">
+          <h3 class="clase__ttl">Clase 7 — Título por confirmar</h3>
+          <span class="clase__lnk">Ver en YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="clase" href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+        <div class="clase__thumb">
+          <span class="clase__num">Clase 8</span>
+          <span class="clase__date">29 oct 2026</span>
+          <div class="clase__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="clase__body">
+          <h3 class="clase__ttl">Clase 8 — Título por confirmar</h3>
+          <span class="clase__lnk">Ver en YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="clase" href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+        <div class="clase__thumb">
+          <span class="clase__num">Clase 9</span>
+          <span class="clase__date">4 nov 2026</span>
+          <div class="clase__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="clase__body">
+          <h3 class="clase__ttl">Clase 9 — Título por confirmar</h3>
+          <span class="clase__lnk">Ver en YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="clase" href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener">
+        <div class="clase__thumb">
+          <span class="clase__num">Clase 10</span>
+          <span class="clase__date">5 nov 2026</span>
+          <div class="clase__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="clase__body">
+          <h3 class="clase__ttl">Clase 10 — Clausura</h3>
+          <span class="clase__lnk">Ver en YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="notice" style="margin-top:36px">
+      <strong>Pendiente:</strong> envíame los enlaces individuales de cada clase en YouTube y los títulos de las clases 5 a 10 para reemplazar los "por confirmar". Hoy todos apuntan al canal principal del PNL.
+    </div>
+  </div>
+</section>
+
+<section class="section section--navy">
+  <div class="container center">
+    <h2 style="color:#fff">¿Quieres estudiar las ideas de la libertad?</h2>
+    <p style="color:rgba(255,255,255,.85);max-width:52ch;margin:0 auto 24px">La Academia es abierta y gratuita. Suscríbete a nuestro canal y únete en vivo cada semana.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener" class="btn btn-primary">Suscribirme al canal</a>
+      <a href="https://sites.google.com/nacionallibertario.cl/academia2026/" target="_blank" rel="noopener" class="btn btn-ghost">Sitio oficial de la Academia</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand"><img src="assets/logos/pnl-horizontal-azul.png" alt="PNL"><p class="footer__tag">Por un Chile libre, seguro y soberano.</p></div>
+      <div><h4>Partido</h4><a href="nosotros.html">Nosotros</a><a href="autoridades-electas.html">Autoridades electas</a><a href="directivas-regionales.html">Directivas regionales</a></div>
+      <div><h4>Participa</h4><a href="hazte-militante.html">Hazte militante</a><a href="donaciones.html">Donaciones</a><a href="areas.html">Áreas</a><a href="academia.html">Academia</a></div>
+      <div><h4>Contacto</h4><a href="mailto:contacto@nacionallibertario.cl">contacto@nacionallibertario.cl</a></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 Partido Nacional Libertario</span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
