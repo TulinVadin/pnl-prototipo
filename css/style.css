@@ -291,8 +291,8 @@ body.menu-open{overflow:hidden}
     radial-gradient(ellipse at 85% 25%, rgba(251,162,17,.14) 0%, transparent 55%),
     linear-gradient(100deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.30) 100%);
 }
-.hero__inner{padding:120px 0;max-width:860px;position:relative;text-align:center;margin:0 auto}
-@media (max-width:600px){.hero__inner{text-align:left;margin:0}}
+.hero__inner{padding:80px 0 70px;max-width:860px;position:relative;text-align:center;margin:0 auto}
+@media (max-width:600px){.hero__inner{text-align:left;margin:0;padding:60px 0 50px}}
 .hero__badge{
   display:inline-flex;align-items:center;gap:8px;padding:8px 14px;
   background:rgba(251,162,17,.15);border:1px solid rgba(251,162,17,.4);
@@ -302,11 +302,11 @@ body.menu-open{overflow:hidden}
 .hero__badge::before{content:"";width:8px;height:8px;background:var(--amber);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .hero__eyebrow{color:var(--amber);font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.8rem;margin-bottom:1rem;display:inline-block}
-.hero h1{color:var(--blanco);margin-bottom:1.2rem;font-size:clamp(2.4rem,5vw,4rem);line-height:1.05}
+.hero h1{color:var(--blanco);margin-bottom:1rem;font-size:clamp(1.9rem,3.8vw,3rem);line-height:1.1;max-width:16ch;margin-left:auto;margin-right:auto}
 .hero h1 em{font-style:normal;color:var(--amber);font-weight:800;position:relative}
 .hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;background:var(--amber);opacity:.5;border-radius:2px}
-.hero__sub{font-size:1.18rem;color:rgba(255,255,255,.92);max-width:60ch;margin:0 auto;line-height:1.55}
-@media (max-width:600px){.hero__sub{margin:0}}
+.hero__sub{font-size:1.05rem;color:rgba(255,255,255,.92);max-width:48ch;margin:0 auto;line-height:1.5}
+@media (max-width:600px){.hero__sub{margin:0;font-size:.98rem}}
 .hero__scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;animation:bounce 2.5s infinite}
 .hero__scroll::after{content:"";display:block;width:1px;height:30px;background:rgba(255,255,255,.4);margin:8px auto 0}
 @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
