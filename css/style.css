@@ -156,9 +156,16 @@ p{margin-bottom:1em;color:var(--gris-700)}
   position:absolute;top:100%;left:0;min-width:240px;
   background:var(--blanco);border:1px solid var(--gris-100);
   border-radius:12px;box-shadow:var(--sombra);
-  padding:10px;display:none;list-style:none;
+  padding:10px;list-style:none;
+  opacity:0;visibility:hidden;transform:translateY(-6px);pointer-events:none;
+  transition:opacity .2s ease, visibility .2s ease, transform .2s ease;
+  margin-top:10px;
 }
-.has-sub:hover .nav__sub,.has-sub:focus-within .nav__sub{display:block}
+/* Puente invisible para que no se cierre al mover el mouse hacia el submenú */
+.nav__links .has-sub::after{
+  content:"";position:absolute;top:100%;left:0;right:0;height:14px;background:transparent;
+}
+.has-sub:hover > .nav__sub,.has-sub:focus-within > .nav__sub{opacity:1;visibility:visible;transform:none;pointer-events:auto}
 .nav__sub a{display:block;padding:9px 12px;font-size:.9rem;border-radius:6px;color:var(--azul)}
 .nav__sub a:hover{background:var(--gris-100);color:var(--azul)}
 /* En header scrolled, el submenú sigue siendo blanco con texto azul */
@@ -179,8 +186,8 @@ p{margin-bottom:1em;color:var(--gris-700)}
     background:var(--blanco);padding:16px;border-bottom:1px solid var(--gris-100);
     box-shadow:var(--sombra);
   }
-  .nav__mobile.open .nav__sub{position:static;box-shadow:none;border:0;padding-left:14px}
-  .nav__mobile.open .has-sub .nav__sub{display:block}
+  .nav__mobile.open .nav__sub{position:static;box-shadow:none;border:0;padding-left:14px;opacity:1;visibility:visible;transform:none;pointer-events:auto;margin-top:0}
+  .nav__links .has-sub::after{display:none}
 }
 
 /* ---------- HERO ---------- */
@@ -204,7 +211,8 @@ p{margin-bottom:1em;color:var(--gris-700)}
     radial-gradient(ellipse at 85% 25%, rgba(251,162,17,.14) 0%, transparent 55%),
     linear-gradient(100deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.30) 100%);
 }
-.hero__inner{padding:120px 0;max-width:760px;position:relative}
+.hero__inner{padding:120px 0;max-width:860px;position:relative;text-align:center;margin:0 auto}
+@media (max-width:600px){.hero__inner{text-align:left;margin:0}}
 .hero__badge{
   display:inline-flex;align-items:center;gap:8px;padding:8px 14px;
   background:rgba(251,162,17,.15);border:1px solid rgba(251,162,17,.4);
@@ -217,7 +225,8 @@ p{margin-bottom:1em;color:var(--gris-700)}
 .hero h1{color:var(--blanco);margin-bottom:1.2rem;font-size:clamp(2.4rem,5vw,4rem);line-height:1.05}
 .hero h1 em{font-style:normal;color:var(--amber);font-weight:800;position:relative}
 .hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;background:var(--amber);opacity:.5;border-radius:2px}
-.hero__sub{font-size:1.18rem;color:rgba(255,255,255,.92);max-width:60ch;margin-bottom:0;line-height:1.55}
+.hero__sub{font-size:1.18rem;color:rgba(255,255,255,.92);max-width:60ch;margin:0 auto;line-height:1.55}
+@media (max-width:600px){.hero__sub{margin:0}}
 .hero__scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;animation:bounce 2.5s infinite}
 .hero__scroll::after{content:"";display:block;width:1px;height:30px;background:rgba(255,255,255,.4);margin:8px auto 0}
 @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
@@ -682,6 +691,34 @@ a.card:hover .card__name{color:var(--amber-600)}
 .user-panel hr{border:0;height:1px;background:var(--gris-100);margin:10px 0}
 .user-panel .logout{color:#C8102E}
 .user-panel .logout svg{color:#C8102E}
+
+/* ---------- Toast lateral (notificación militante) ---------- */
+.toast{
+  position:fixed;right:20px;bottom:20px;z-index:160;
+  width:320px;max-width:calc(100vw - 40px);
+  background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  border:1px solid var(--gris-100);
+  transform:translateX(380px);opacity:0;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1), opacity .3s;
+}
+.toast.show{transform:translateX(0);opacity:1}
+.toast__hd{background:linear-gradient(135deg,var(--azul) 0%,var(--azul-900) 100%);color:#fff;padding:14px 44px 14px 18px;position:relative;overflow:hidden}
+.toast__hd::before{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;background-image:url('../assets/logos/pnl-isotipo.png');background-repeat:no-repeat;background-size:contain;opacity:.1}
+.toast__hd h4{color:#fff;font-size:.98rem;margin:0 0 2px;font-family:var(--fs-serif);font-weight:700;position:relative;z-index:1}
+.toast__hd span{font-size:.78rem;color:rgba(255,255,255,.75);position:relative;z-index:1}
+.toast__close{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:background .2s;border:0}
+.toast__close:hover{background:rgba(255,255,255,.3)}
+.toast__close svg{width:14px;height:14px}
+.toast__bd{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.toast__btn{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:var(--gris-50);color:var(--azul);text-decoration:none;transition:all .2s;border:1px solid transparent}
+.toast__btn:hover{background:var(--amber-50);border-color:var(--amber);color:var(--azul);transform:translateX(2px)}
+.toast__btn__ico{width:36px;height:36px;border-radius:10px;background:var(--amber);color:var(--azul);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toast__btn__ico svg{width:18px;height:18px}
+.toast__btn__txt{flex:1;line-height:1.25}
+.toast__btn__txt strong{display:block;font-size:.9rem;font-weight:700;color:var(--azul)}
+.toast__btn__txt span{display:block;font-size:.76rem;color:var(--gris-700);font-weight:500}
+@media (max-width:400px){.toast{right:12px;bottom:12px;width:calc(100vw - 24px)}}
 
 /* ---------- Gate wall (pantalla bloqueo) ---------- */
 .gate-wall{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:60px 24px;background:linear-gradient(135deg,var(--azul) 0%,var(--azul-900) 100%);color:#fff;position:relative;overflow:hidden}

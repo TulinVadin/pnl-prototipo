@@ -115,6 +115,42 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => modal.classList.add('open'), 900);
   }
 
+  // ======= Toast lateral para militantes logueados =======
+  if (PNL.isLoggedIn()) {
+    let toastSeen = false;
+    try { toastSeen = sessionStorage.getItem('pnl_toast_seen') === '1'; } catch(e){}
+    const onGuarded = ['academia.html','elecciones-internas.html','login.html'].includes(path);
+    if (!toastSeen && !onGuarded) {
+      const u = PNL.getUser();
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `
+        <div class="toast__hd">
+          <h4>Hola, ${escapeHtml(u.name.split(' ')[0])}</h4>
+          <span>Accede a tu contenido exclusivo</span>
+          <button class="toast__close" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div class="toast__bd">
+          <a class="toast__btn" href="academia.html">
+            <div class="toast__btn__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.9V17h2V9L12 3z"/></svg></div>
+            <div class="toast__btn__txt"><strong>Academia</strong><span>Clases en vivo y repositorio</span></div>
+          </a>
+          <a class="toast__btn" href="elecciones-internas.html">
+            <div class="toast__btn__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-9 14l-5-5 1.4-1.4L10 14.2l7.6-7.6L19 8l-9 9z"/></svg></div>
+            <div class="toast__btn__txt"><strong>Elecciones internas</strong><span>Proceso 2026 — 21 de noviembre</span></div>
+          </a>
+        </div>
+      `;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.classList.add('show'), 1200);
+      toast.querySelector('.toast__close').addEventListener('click', () => {
+        toast.classList.remove('show');
+        try { sessionStorage.setItem('pnl_toast_seen', '1'); } catch(e){}
+        setTimeout(() => toast.remove(), 450);
+      });
+    }
+  }
+
   // ======= Modal de video (reutilizable) =======
   document.querySelectorAll('[data-video]').forEach(trigger => {
     trigger.addEventListener('click', (e) => {

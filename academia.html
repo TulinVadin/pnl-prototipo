@@ -15,7 +15,9 @@
 .academia-hero{background:linear-gradient(135deg,var(--azul-900) 0%,var(--azul) 100%);color:#fff;padding:88px 0 72px;position:relative;overflow:hidden}
 .academia-hero::before{content:"";position:absolute;right:-80px;top:-60px;width:400px;height:400px;background-image:url('assets/logos/pnl-isotipo.png');background-repeat:no-repeat;background-size:contain;opacity:.07}
 .academia-hero::after{content:"";position:absolute;left:-120px;bottom:-120px;width:300px;height:300px;background:radial-gradient(circle,var(--amber) 0%,transparent 65%);opacity:.2}
-.academia-hero__inner{position:relative;z-index:1;max-width:720px}
+.academia-hero__inner{position:relative;z-index:1;max-width:760px;margin:0 auto;text-align:center}
+.academia-hero p{margin:0 auto}
+@media (max-width:600px){.academia-hero__inner,.academia-hero p{text-align:left;margin:0}}
 .academia-hero h1{color:#fff;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05;margin:14px 0 16px}
 .academia-hero h1 em{font-style:normal;color:var(--amber)}
 .academia-hero p{color:rgba(255,255,255,.88);font-size:1.15rem;max-width:60ch;margin:0}
