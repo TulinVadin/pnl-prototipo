@@ -614,6 +614,33 @@ a.card:hover .card__name{color:var(--amber-600)}
 .modal__close:hover{background:rgba(255,255,255,.3)}
 .modal__close svg{width:16px;height:16px}
 
+/* ---------- Chip de usuario logueado ---------- */
+.user-chip{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:999px;background:var(--amber-50);border:1.5px solid var(--amber);cursor:pointer;transition:all .2s;white-space:nowrap;color:var(--azul);font-weight:700;font-size:.86rem;position:relative}
+.user-chip:hover{background:var(--amber)}
+.user-chip__av{width:30px;height:30px;border-radius:50%;background:var(--azul);color:var(--amber);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.78rem;letter-spacing:.02em;flex-shrink:0}
+.header.scrolled .user-chip{color:var(--azul);background:var(--amber);border-color:var(--amber)}
+.user-panel{position:absolute;top:calc(100% + 10px);right:0;width:280px;background:#fff;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25);padding:18px;opacity:0;transform:translateY(-10px);pointer-events:none;transition:opacity .25s, transform .25s;border:1px solid var(--gris-100);z-index:60;text-align:left;color:var(--azul);font-weight:500}
+.user-chip.open .user-panel{opacity:1;transform:none;pointer-events:auto}
+.user-panel h4{color:var(--azul);font-family:var(--fs-serif);font-size:1.02rem;margin-bottom:2px}
+.user-panel .mail{color:var(--gris-400);font-size:.8rem;margin-bottom:14px;display:block;font-weight:500}
+.user-panel a,.user-panel button{display:flex;width:100%;text-align:left;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:var(--azul);font-size:.88rem;font-weight:600;transition:background .2s;background:transparent;border:0;cursor:pointer;font-family:inherit}
+.user-panel a:hover,.user-panel button:hover{background:var(--amber-50);color:var(--azul)}
+.user-panel a svg,.user-panel button svg{width:16px;height:16px;color:var(--amber-600);flex-shrink:0}
+.user-panel hr{border:0;height:1px;background:var(--gris-100);margin:10px 0}
+.user-panel .logout{color:#C8102E}
+.user-panel .logout svg{color:#C8102E}
+
+/* ---------- Gate wall (pantalla bloqueo) ---------- */
+.gate-wall{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:60px 24px;background:linear-gradient(135deg,var(--azul) 0%,var(--azul-900) 100%);color:#fff;position:relative;overflow:hidden}
+.gate-wall::before{content:"";position:absolute;right:-120px;top:-80px;width:460px;height:460px;background-image:url('../assets/logos/pnl-isotipo.png');background-repeat:no-repeat;background-size:contain;opacity:.07}
+.gate-wall::after{content:"";position:absolute;left:-100px;bottom:-100px;width:320px;height:320px;background:radial-gradient(circle,var(--amber) 0%,transparent 65%);opacity:.2}
+.gate-wall__inner{position:relative;z-index:1;max-width:480px;text-align:center}
+.gate-wall__ico{width:88px;height:88px;border-radius:50%;background:var(--amber);color:var(--azul);display:inline-flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 10px 30px rgba(251,162,17,.4)}
+.gate-wall__ico svg{width:44px;height:44px}
+.gate-wall h1{color:#fff;font-size:clamp(1.8rem,3.4vw,2.4rem);margin-bottom:10px}
+.gate-wall p{color:rgba(255,255,255,.85);font-size:1.02rem;margin-bottom:28px}
+.gate-wall__actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
 /* ---------- Botón Zona Militantes en header ---------- */
 .nav__militante{position:relative}
 .nav__militante-btn{

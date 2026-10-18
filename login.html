@@ -89,20 +89,20 @@
   </aside>
 
   <section class="login-form-wrap">
-    <form class="login-form" onsubmit="event.preventDefault();alert('Prototipo: aquí conectaríamos con la base de datos de militantes (Servel/sistema interno).');">
+    <form class="login-form" id="loginForm">
       <h2>Iniciar sesión</h2>
-      <p class="sub">Ingresa con tu RUT y clave de militante.</p>
+      <p class="sub">Ingresa tu nombre para entrar a la Zona Militantes.</p>
 
-      <div class="login-note"><strong>Prototipo:</strong> esta pantalla es solo demostrativa. En producción se conectará al registro oficial de militantes.</div>
+      <div class="login-note"><strong>Simulación de prototipo:</strong> todavía no conectamos al registro oficial del Servel. Por ahora solo con tu nombre entras directo.</div>
 
-      <label for="rut">RUT</label>
-      <input id="rut" type="text" required placeholder="12.345.678-9" autocomplete="username">
+      <label for="name">Nombre</label>
+      <input id="name" type="text" required placeholder="Ej. Ignacio Aranda" autocomplete="name" value="Ignacio Aranda">
 
-      <label for="pass">Clave</label>
-      <input id="pass" type="password" required placeholder="Tu contraseña" autocomplete="current-password">
+      <label for="mail">Correo (opcional)</label>
+      <input id="mail" type="email" placeholder="tucorreo@ejemplo.cl" autocomplete="email">
 
       <div class="row-small">
-        <label><input type="checkbox"> Recordarme</label>
+        <label><input type="checkbox" checked> Recordarme</label>
         <a href="#" class="forgot">¿Olvidaste tu clave?</a>
       </div>
 
@@ -112,6 +112,17 @@
 
       <p class="alt">¿Aún no eres militante? <a href="hazte-militante.html">Hazte militante del PNL</a></p>
     </form>
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const mail = document.getElementById('mail').value;
+        PNL.login(name, mail);
+        const params = new URLSearchParams(location.search);
+        const next = params.get('next') || 'index.html';
+        location.href = next;
+      });
+    </script>
   </section>
 </div>
 
