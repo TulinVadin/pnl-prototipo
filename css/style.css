@@ -281,9 +281,15 @@ body.menu-open{overflow:hidden}
 }
 .hero::before{
   content:"";position:absolute;inset:0;z-index:-2;
-  background-image:url('../assets/img/hero-cierre-campana.jpg');
-  background-size:cover;background-position:center 45%;
+  background-image:url('../assets/img/hero-cierre-desktop.jpg');
+  background-size:cover;background-position:center 55%;
   transform:scale(1.05);
+}
+@media (max-width:760px){
+  .hero::before{
+    background-image:url('../assets/img/hero-cierre-mobile.jpg');
+    background-position:center center;
+  }
 }
 .hero::after{
   content:"";position:absolute;inset:0;z-index:-1;
