@@ -30,16 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (href === path) a.setAttribute('aria-current', 'page');
   });
 
-  // Reemplaza el logo con 3 variantes: navy (default white bg), white (scrolled dark bg), iso (mobile)
+  // Si por alguna razón el HTML tiene un img antiguo sin variantes, lo reemplazamos
   document.querySelectorAll('.nav__brand').forEach(brand => {
-    const existing = brand.querySelector('img');
-    if (existing && !brand.querySelector('.brand-navy')) {
-      existing.remove();
-      brand.innerHTML = `
-        <img class="brand-navy" src="assets/logos/pnl-logo-navy.png" alt="Partido Nacional Libertario">
-        <img class="brand-white" src="assets/logos/pnl-logo-white.png" alt="Partido Nacional Libertario">
-        <img class="brand-i" src="assets/logos/pnl-isotipo.png" alt="PNL">
-      `;
+    if (!brand.querySelector('.brand-navy')) {
+      brand.innerHTML = `<img class="brand-navy" src="assets/logos/pnl-logo-navy.png" alt="Partido Nacional Libertario"><img class="brand-white" src="assets/logos/pnl-logo-white.png" alt="PNL"><img class="brand-i" src="assets/logos/pnl-isotipo.png" alt="PNL">`;
     }
   });
 
@@ -383,7 +377,7 @@ function buildMobileMenu(){
   });
 }
 
-// ---- Carousels INFINITOS (loop con clones) ----
+// ---- Carousels INFINITOS (loop verdadero con clones) ----
 function initCarousels(){
   const isMobile = window.matchMedia('(max-width: 760px)').matches;
   const selector = isMobile ? '.grid-carousel, .carousel-always' : '.carousel-always';
@@ -394,7 +388,21 @@ function initCarousels(){
     const originalItems = Array.from(carousel.children);
     if (originalItems.length < 2) return;
 
-    // Clonar los últimos N al inicio y los primeros N al final para loop sin corte
+    // Pre-asignar data-num a los principios reales (para que el conteo sea correcto)
+    if (originalItems[0].classList.contains('principio')) {
+      // calcula offset: busca otros .principios anteriores con data-start
+      let base = 1;
+      const prevCarousels = document.querySelectorAll('.principios.carousel-always');
+      prevCarousels.forEach(pc => {
+        if (pc === carousel) return;
+        if (pc.compareDocumentPosition(carousel) & Node.DOCUMENT_POSITION_FOLLOWING) {
+          base += pc.children.length;
+        }
+      });
+      originalItems.forEach((it, i) => it.setAttribute('data-num', String(base + i).padStart(2, '0')));
+    }
+
+    // Clonar los últimos N al inicio y los primeros N al final
     const cloneCount = Math.min(3, originalItems.length);
     originalItems.slice(0, cloneCount).forEach(it => {
       const c = it.cloneNode(true);
@@ -413,33 +421,35 @@ function initCarousels(){
     const realStart = cloneCount;
     const realEnd = cloneCount + originalItems.length - 1;
 
-    const getLeftFor = (idx) => {
+    const getItemCenterOffset = (idx) => {
       const target = allItems[idx];
-      const rCar = carousel.getBoundingClientRect();
-      const rIt = target.getBoundingClientRect();
-      return rIt.left - rCar.left + carousel.scrollLeft - (carousel.clientWidth - target.clientWidth) / 2;
+      // Posición absoluta en el carrusel (ignorando scrollLeft)
+      return target.offsetLeft - (carousel.clientWidth - target.offsetWidth) / 2;
     };
     const scrollToIndex = (idx, smooth = true) => {
-      const left = getLeftFor(idx);
-      carousel.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
+      const left = getItemCenterOffset(idx);
+      carousel.scrollTo({ left: Math.max(0, left), behavior: smooth ? 'smooth' : 'auto' });
     };
     const currentIndex = () => {
       const center = carousel.scrollLeft + carousel.clientWidth / 2;
       let best = 0, bestDist = Infinity;
       allItems.forEach((it, i) => {
-        const itCenter = it.offsetLeft - carousel.offsetLeft + it.offsetWidth / 2;
+        const itCenter = it.offsetLeft + it.offsetWidth / 2;
         const d = Math.abs(itCenter - center);
         if (d < bestDist) { bestDist = d; best = i; }
       });
       return best;
     };
 
-    // Posición inicial sobre el primer item real (después de las clones de inicio)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => scrollToIndex(realStart, false));
-    });
+    // Posición inicial sobre el primer item real (esperamos a window.load por si hay imágenes)
+    const positionInitial = () => scrollToIndex(realStart, false);
+    if (document.readyState === 'complete') {
+      requestAnimationFrame(positionInitial);
+    } else {
+      window.addEventListener('load', () => requestAnimationFrame(positionInitial), { once: true });
+    }
 
-    // Envolver con wrap
+    // Wrap
     let wrap = carousel.parentElement;
     if (!wrap.classList.contains('carousel-wrap')) {
       wrap = document.createElement('div');
@@ -460,32 +470,35 @@ function initCarousels(){
     wrap.appendChild(prev);
     wrap.appendChild(next);
 
-    prev.addEventListener('click', () => scrollToIndex(currentIndex() - 1));
-    next.addEventListener('click', () => scrollToIndex(currentIndex() + 1));
-
-    // Reposiciona invisiblemente cuando el usuario (scroll o swipe) entra en zona de clones
-    let snapTimer;
-    const total = originalItems.length;
-    carousel.addEventListener('scroll', () => {
-      clearTimeout(snapTimer);
-      snapTimer = setTimeout(() => {
+    // Teleport SOLO después de que la animación termine (debounced + condicionado)
+    let teleportTimer;
+    const checkTeleport = () => {
+      clearTimeout(teleportTimer);
+      teleportTimer = setTimeout(() => {
         const idx = currentIndex();
         if (idx < realStart) {
-          // En clone al inicio → saltar al equivalente real al final
           const eq = realEnd - (realStart - 1 - idx);
           scrollToIndex(eq, false);
         } else if (idx > realEnd) {
           const eq = realStart + (idx - realEnd - 1);
           scrollToIndex(eq, false);
         }
-      }, 140);
-    }, { passive: true });
+      }, 180);
+    };
 
-    // Re-centra en resize
-    window.addEventListener('resize', () => {
-      const idx = currentIndex();
-      scrollToIndex(idx, false);
-    });
+    const go = (dir) => {
+      const curr = currentIndex();
+      scrollToIndex(curr + dir, true); // siempre smooth
+      // Después de ~550ms la animación smooth terminó; chequeamos teleport
+      setTimeout(checkTeleport, 550);
+    };
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+
+    // Para swipe/scroll táctil: detectar scroll idle y teleport silencioso
+    carousel.addEventListener('scroll', checkTeleport, { passive: true });
+
+    window.addEventListener('resize', () => scrollToIndex(currentIndex(), false));
   });
 }
 document.addEventListener('DOMContentLoaded', initCarousels);

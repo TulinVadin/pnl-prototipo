@@ -433,7 +433,7 @@ a.card:hover .card__name{color:var(--amber-600)}
   position:relative;transition:all .35s cubic-bezier(.2,.7,.2,1);overflow:hidden;
 }
 .principio::after{
-  counter-increment:p;content:counter(p,decimal-leading-zero);
+  content:attr(data-num);
   position:absolute;top:16px;right:18px;
   font-family:var(--fs-serif);font-size:1.1rem;font-weight:800;
   color:var(--gris-200);line-height:1;letter-spacing:-.02em;transition:color .3s;
