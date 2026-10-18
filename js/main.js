@@ -23,16 +23,28 @@ const PNL = {
 window.PNL = PNL;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const burger = document.querySelector('.nav__burger');
-  const nav = document.querySelector('.nav__mobile');
-  if (burger && nav) burger.addEventListener('click', () => nav.classList.toggle('open'));
-
   // Marca enlace actual
   const path = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav__links a').forEach(a => {
     const href = a.getAttribute('href');
     if (href === path) a.setAttribute('aria-current', 'page');
   });
+
+  // Reemplaza el logo horizontal con isotipo+horizontal (para swap en mobile)
+  document.querySelectorAll('.nav__brand').forEach(brand => {
+    const existing = brand.querySelector('img');
+    if (existing && !brand.querySelector('.brand-i')) {
+      existing.classList.add('brand-h');
+      const iso = document.createElement('img');
+      iso.src = 'assets/logos/pnl-isotipo.png';
+      iso.className = 'brand-i';
+      iso.alt = 'PNL';
+      brand.appendChild(iso);
+    }
+  });
+
+  // ======= Mobile menu overlay =======
+  buildMobileMenu();
 
   // Header scroll-aware
   const header = document.querySelector('.header');
@@ -269,3 +281,116 @@ function renderGateWall(page){
 }
 
 function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+// ---- Mobile menu overlay (construido desde .nav__links) ----
+function buildMobileMenu(){
+  const sourceLinks = document.querySelector('.nav__links');
+  const burger = document.querySelector('.nav__burger');
+  if (!sourceLinks || !burger) return;
+
+  // Si ya existe, no duplicar
+  if (document.querySelector('.mobile-menu')) return;
+
+  // Construir items del menú mobile desde el nav__links
+  let menuHtml = '<ul>';
+  sourceLinks.querySelectorAll(':scope > li').forEach(li => {
+    const link = li.querySelector(':scope > a');
+    const sub = li.querySelector(':scope > ul.nav__sub');
+    const label = link ? link.textContent.trim() : '';
+    const href = link ? link.getAttribute('href') : '#';
+    const activeCls = (href === (location.pathname.split('/').pop() || 'index.html')) ? ' active' : '';
+    if (sub) {
+      // Item con submenu: botón toggle en mobile
+      let subItems = '<ul>';
+      sub.querySelectorAll(':scope > li > a').forEach(sa => {
+        subItems += `<li><a href="${sa.getAttribute('href')}">${sa.textContent.trim()}</a></li>`;
+      });
+      subItems += '</ul>';
+      menuHtml += `<li class="has-sub-m${activeCls}"><button type="button">${label}<span class="caret"></span></button>${subItems}</li>`;
+    } else {
+      menuHtml += `<li><a href="${href}" class="${activeCls.trim()}">${label}</a></li>`;
+    }
+  });
+  menuHtml += '</ul>';
+
+  // Bloque usuario (si logueado)
+  let userBlock = '';
+  if (PNL.isLoggedIn()) {
+    const u = PNL.getUser();
+    userBlock = `
+      <div class="mobile-menu__user">
+        <div class="mobile-menu__user__av">${PNL.initials(u.name)}</div>
+        <div class="mobile-menu__user__txt">
+          <strong>${escapeHtml(u.name)}</strong>
+          <span>Zona militantes activa</span>
+        </div>
+        <button class="mobile-menu__user__logout" type="button">Salir</button>
+      </div>`;
+  }
+
+  // CTAs
+  const ctasBlock = PNL.isLoggedIn() ? `
+    <div class="mobile-menu__ctas">
+      <a href="academia.html" class="btn btn-primary">Entrar a la Academia</a>
+      <a href="elecciones-internas.html" class="btn btn-outline">Elecciones internas</a>
+    </div>` : `
+    <div class="mobile-menu__ctas">
+      <a href="hazte-militante.html" class="btn btn-primary">Hazte militante</a>
+      <a href="donaciones.html" class="btn btn-outline">Donar</a>
+      <a href="login.html" class="btn-militante" style="justify-content:center;text-decoration:none;padding:14px;border-radius:999px;font-weight:700">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6a5 5 0 00-10 0v2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V10a2 2 0 00-2-2zM9 6a3 3 0 016 0v2H9V6z"/></svg>
+        Zona militantes
+      </a>
+    </div>`;
+
+  const socialBlock = `
+    <div class="mobile-menu__social">
+      <a href="https://www.facebook.com/p/Partido-Nacional-Libertario-61560587226566/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.6 9.9v-7h-2v-3h2V9.5c0-2 1.2-3 3-3 .9 0 1.8.2 1.8.2v2h-1c-1 0-1.3.6-1.3 1.2V12h2.2l-.4 3h-1.8v7A10 10 0 0022 12z"/></svg></a>
+      <a href="https://x.com/Partido_NL" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 3H22l-7.2 8.2L23 21h-6.6l-5.1-6.6L5.5 21H2.4l7.7-8.8L2 3h6.8l4.6 6.1L18.9 3z"/></svg></a>
+      <a href="https://www.instagram.com/partido_nacional_libertario/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 2 .3 2.6.5.7.3 1.2.6 1.7 1.2.5.5.9 1 1.2 1.7.2.6.4 1.4.5 2.6 0 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 2-.5 2.6-.3.7-.6 1.2-1.2 1.7-.5.5-1 .9-1.7 1.2-.6.2-1.4.4-2.6.5-1.3 0-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-2-.3-2.6-.5-.7-.3-1.2-.6-1.7-1.2-.5-.5-.9-1-1.2-1.7-.2-.6-.4-1.4-.5-2.6 0-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.3-2 .5-2.6.3-.7.6-1.2 1.2-1.7.5-.5 1-.9 1.7-1.2.6-.2 1.4-.4 2.6-.5 1.3 0 1.6-.1 4.8-.1zm0 3.5A4.2 4.2 0 1112 16a4.2 4.2 0 010-8.2zm0 7a2.8 2.8 0 100-5.6 2.8 2.8 0 000 5.6z"/></svg></a>
+      <a href="https://www.tiktok.com/@partido_nl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 7.2a6 6 0 01-3.5-1.1v8a5.3 5.3 0 11-5.3-5.3v2.6a2.7 2.7 0 102.7 2.7V2h2.6a3.4 3.4 0 003.5 3.4v1.8z"/></svg></a>
+      <a href="https://www.youtube.com/@Partido_NL" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5s-.2-1.6-.9-2.3c-.8-.9-1.8-.9-2.2-1C16.6 4 12 4 12 4s-4.6 0-7.9.3c-.4 0-1.4.1-2.2 1-.7.7-.9 2.3-.9 2.3S.8 9.3.8 11.2v1.6c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1 1.8.2 7.7.2 7.7.2s4.6 0 7.9-.3c.4 0 1.4-.1 2.2-1 .7-.7.9-2.3.9-2.3s.2-1.8.2-3.7v-1.6c0-1.9-.2-3.7-.2-3.7zM9.7 15V8.5l6.2 3.2L9.7 15z"/></svg></a>
+    </div>
+    <div class="mobile-menu__foot">© 2026 Partido Nacional Libertario</div>`;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'mobile-menu';
+  overlay.innerHTML = `
+    <div class="mobile-menu__inner">
+      ${userBlock}
+      ${menuHtml}
+      ${ctasBlock}
+      ${socialBlock}
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  // Burger toggle
+  burger.addEventListener('click', () => {
+    const open = overlay.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    document.body.classList.toggle('menu-open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+
+  // Submenu toggle en mobile
+  overlay.querySelectorAll('.has-sub-m > button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      btn.parentElement.classList.toggle('open');
+    });
+  });
+
+  // Logout en mobile
+  const logoutBtn = overlay.querySelector('.mobile-menu__user__logout');
+  if (logoutBtn) logoutBtn.addEventListener('click', () => { PNL.logout(); location.reload(); });
+
+  // Cerrar al navegar
+  overlay.querySelectorAll('a[href]').forEach(a => {
+    a.addEventListener('click', () => {
+      overlay.classList.remove('open');
+      burger.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    });
+  });
+}
