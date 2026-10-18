@@ -425,38 +425,47 @@ a.card{display:block;color:inherit;text-decoration:none}
 a.card .card__cta{color:var(--amber-600)}
 a.card:hover .card__name{color:var(--amber-600)}
 
-/* ---------- Principios (visual) ---------- */
-.principios{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;counter-reset:p;align-items:start}
+/* ---------- Principios (visual compacto) ---------- */
+.principios{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+@media (min-width:1100px){.principios{grid-template-columns:repeat(5,1fr)}}
 .principio{
   background:var(--blanco);border:1px solid var(--gris-100);
-  border-radius:var(--radio);padding:28px 24px;
-  position:relative;transition:all .35s cubic-bezier(.2,.7,.2,1);overflow:hidden;
+  border-radius:12px;padding:18px 16px;
+  position:relative;transition:all .3s cubic-bezier(.2,.7,.2,1);overflow:hidden;
 }
 .principio::after{
   content:attr(data-num);
-  position:absolute;top:16px;right:18px;
-  font-family:var(--fs-serif);font-size:1.1rem;font-weight:800;
+  position:absolute;top:10px;right:12px;
+  font-family:var(--fs-serif);font-size:.9rem;font-weight:800;
   color:var(--gris-200);line-height:1;letter-spacing:-.02em;transition:color .3s;
 }
-.principio:hover{border-color:var(--amber);transform:translateY(-4px);box-shadow:var(--sombra-md);background:#fffdf7}
+.principio:hover{border-color:var(--amber);transform:translateY(-3px);box-shadow:var(--sombra);background:#fffdf7;z-index:2}
 .principio:hover::after{color:var(--amber)}
 .principio__ico{
-  width:48px;height:48px;border-radius:12px;
+  width:38px;height:38px;border-radius:10px;
   background:var(--amber-50);color:var(--amber-600);
-  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:10px;
   transition:background .3s, color .3s, transform .3s;
 }
-.principio__ico svg{width:26px;height:26px}
+.principio__ico svg{width:20px;height:20px}
 .principio:hover .principio__ico{background:var(--amber);color:var(--azul);transform:scale(1.05)}
-.principio h3{color:var(--azul);font-size:1.05rem;margin-bottom:6px;font-weight:700;line-height:1.3}
-.principio__short{font-size:.92rem;margin:0;color:var(--gris-700);line-height:1.5}
+.principio h3{color:var(--azul);font-size:.95rem;margin-bottom:4px;font-weight:700;line-height:1.25}
+.principio__short{font-size:.82rem;margin:0;color:var(--gris-700);line-height:1.4}
 .principio__full{
-  font-size:.88rem;color:var(--gris-700);line-height:1.6;margin:0;
+  font-size:.78rem;color:var(--gris-700);line-height:1.5;margin:0;
   max-height:0;opacity:0;overflow:hidden;
-  transition:max-height .45s ease, opacity .3s ease, margin-top .3s ease, padding-top .3s ease;
+  transition:max-height .4s ease, opacity .3s ease, margin-top .3s ease, padding-top .3s ease;
   border-top:1px dashed transparent;
 }
-.principio:hover .principio__full{max-height:260px;opacity:1;margin-top:14px;padding-top:12px;border-top-color:var(--amber-50)}
+.principio:hover .principio__full{max-height:260px;opacity:1;margin-top:10px;padding-top:8px;border-top-color:var(--amber-50)}
+@media (max-width:600px){
+  .principios{grid-template-columns:1fr 1fr;gap:10px}
+  .principio{padding:14px 12px}
+  .principio h3{font-size:.88rem}
+  .principio__short{font-size:.76rem}
+  .principio__ico{width:32px;height:32px;margin-bottom:8px}
+  .principio__ico svg{width:16px;height:16px}
+}
 
 /* ---------- Áreas ---------- */
 .area{
