@@ -383,16 +383,63 @@ function buildMobileMenu(){
   });
 }
 
-// ---- Carousels con flechas (prev/next circular) ----
+// ---- Carousels INFINITOS (loop con clones) ----
 function initCarousels(){
   const isMobile = window.matchMedia('(max-width: 760px)').matches;
   const selector = isMobile ? '.grid-carousel, .carousel-always' : '.carousel-always';
   document.querySelectorAll(selector).forEach(carousel => {
     if (carousel.dataset.carouselInit) return;
     carousel.dataset.carouselInit = '1';
-    const items = Array.from(carousel.children).filter(c => c.classList.contains('card') || c.classList.contains('principio') || c.classList.contains('news-card') || c.tagName === 'ARTICLE' || c.tagName === 'A' || c.tagName === 'DIV');
-    if (items.length === 0) return;
-    // Envolver en wrap si no está
+
+    const originalItems = Array.from(carousel.children);
+    if (originalItems.length < 2) return;
+
+    // Clonar los últimos N al inicio y los primeros N al final para loop sin corte
+    const cloneCount = Math.min(3, originalItems.length);
+    originalItems.slice(0, cloneCount).forEach(it => {
+      const c = it.cloneNode(true);
+      c.setAttribute('aria-hidden','true');
+      c.dataset.clone = 'end';
+      carousel.appendChild(c);
+    });
+    originalItems.slice(-cloneCount).reverse().forEach(it => {
+      const c = it.cloneNode(true);
+      c.setAttribute('aria-hidden','true');
+      c.dataset.clone = 'start';
+      carousel.insertBefore(c, carousel.firstChild);
+    });
+
+    const allItems = Array.from(carousel.children);
+    const realStart = cloneCount;
+    const realEnd = cloneCount + originalItems.length - 1;
+
+    const getLeftFor = (idx) => {
+      const target = allItems[idx];
+      const rCar = carousel.getBoundingClientRect();
+      const rIt = target.getBoundingClientRect();
+      return rIt.left - rCar.left + carousel.scrollLeft - (carousel.clientWidth - target.clientWidth) / 2;
+    };
+    const scrollToIndex = (idx, smooth = true) => {
+      const left = getLeftFor(idx);
+      carousel.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
+    };
+    const currentIndex = () => {
+      const center = carousel.scrollLeft + carousel.clientWidth / 2;
+      let best = 0, bestDist = Infinity;
+      allItems.forEach((it, i) => {
+        const itCenter = it.offsetLeft - carousel.offsetLeft + it.offsetWidth / 2;
+        const d = Math.abs(itCenter - center);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      return best;
+    };
+
+    // Posición inicial sobre el primer item real (después de las clones de inicio)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => scrollToIndex(realStart, false));
+    });
+
+    // Envolver con wrap
     let wrap = carousel.parentElement;
     if (!wrap.classList.contains('carousel-wrap')) {
       wrap = document.createElement('div');
@@ -400,6 +447,7 @@ function initCarousels(){
       carousel.parentNode.insertBefore(wrap, carousel);
       wrap.appendChild(carousel);
     }
+
     // Flechas
     const prev = document.createElement('button');
     prev.className = 'carousel-arrow carousel-arrow--prev';
@@ -412,40 +460,31 @@ function initCarousels(){
     wrap.appendChild(prev);
     wrap.appendChild(next);
 
-    const scrollToIndex = (idx, smooth = true) => {
-      const total = items.length;
-      const i = ((idx % total) + total) % total;
-      const target = items[i];
-      const left = target.offsetLeft - carousel.offsetLeft - (carousel.clientWidth - target.clientWidth) / 2;
-      carousel.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
-    };
-    const currentIndex = () => {
-      const scrollLeft = carousel.scrollLeft;
-      const center = scrollLeft + carousel.clientWidth / 2;
-      let best = 0, bestDist = Infinity;
-      items.forEach((it, i) => {
-        const itCenter = it.offsetLeft - carousel.offsetLeft + it.offsetWidth / 2;
-        const d = Math.abs(itCenter - center);
-        if (d < bestDist) { bestDist = d; best = i; }
-      });
-      return best;
-    };
-    // Loop infinito: al cruzar el borde, salto sin animación al equivalente del otro lado
-    prev.addEventListener('click', () => {
-      const curr = currentIndex();
-      if (curr === 0) {
-        scrollToIndex(items.length - 1, false); // teleport al final (sin animación)
-      } else {
-        scrollToIndex(curr - 1);
-      }
-    });
-    next.addEventListener('click', () => {
-      const curr = currentIndex();
-      if (curr === items.length - 1) {
-        scrollToIndex(0, false); // teleport al inicio
-      } else {
-        scrollToIndex(curr + 1);
-      }
+    prev.addEventListener('click', () => scrollToIndex(currentIndex() - 1));
+    next.addEventListener('click', () => scrollToIndex(currentIndex() + 1));
+
+    // Reposiciona invisiblemente cuando el usuario (scroll o swipe) entra en zona de clones
+    let snapTimer;
+    const total = originalItems.length;
+    carousel.addEventListener('scroll', () => {
+      clearTimeout(snapTimer);
+      snapTimer = setTimeout(() => {
+        const idx = currentIndex();
+        if (idx < realStart) {
+          // En clone al inicio → saltar al equivalente real al final
+          const eq = realEnd - (realStart - 1 - idx);
+          scrollToIndex(eq, false);
+        } else if (idx > realEnd) {
+          const eq = realStart + (idx - realEnd - 1);
+          scrollToIndex(eq, false);
+        }
+      }, 140);
+    }, { passive: true });
+
+    // Re-centra en resize
+    window.addEventListener('resize', () => {
+      const idx = currentIndex();
+      scrollToIndex(idx, false);
     });
   });
 }
