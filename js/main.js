@@ -116,6 +116,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // ======= Modal de video YouTube =======
+  document.querySelectorAll('[data-yt]').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = trigger.getAttribute('data-yt');
+      const vm = document.createElement('div');
+      vm.className = 'vmodal vmodal--yt';
+      vm.innerHTML = `
+        <div class="vmodal__wrap" role="dialog" aria-modal="true" style="aspect-ratio:16/9;max-width:960px">
+          <button class="vmodal__close" aria-label="Cerrar video">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
+        </div>
+      `;
+      document.body.appendChild(vm);
+      requestAnimationFrame(() => vm.classList.add('open'));
+      const closeFn = () => {
+        vm.classList.remove('open');
+        setTimeout(() => vm.remove(), 300);
+        document.removeEventListener('keydown', escClose);
+      };
+      const escClose = (ev) => { if (ev.key === 'Escape') closeFn(); };
+      vm.querySelector('.vmodal__close').addEventListener('click', closeFn);
+      vm.addEventListener('click', (ev) => { if (ev.target === vm) closeFn(); });
+      document.addEventListener('keydown', escClose);
+    });
+  });
+
   // ======= Modal de video (reutilizable) =======
   document.querySelectorAll('[data-video]').forEach(trigger => {
     trigger.addEventListener('click', (e) => {
