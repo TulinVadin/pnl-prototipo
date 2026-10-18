@@ -593,6 +593,55 @@ a.card:hover .card__name{color:var(--amber-600)}
 }
 .cta-block > *{position:relative;z-index:1}
 
+/* ---------- Modal (bienvenida Academia) ---------- */
+.modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,18,35,.75);backdrop-filter:blur(6px);opacity:0;transition:opacity .3s ease}
+.modal.open{display:flex;opacity:1}
+.modal__card{background:#fff;max-width:540px;width:100%;border-radius:18px;overflow:hidden;transform:scale(.95) translateY(10px);transition:transform .35s cubic-bezier(.2,.7,.2,1);box-shadow:0 30px 80px rgba(0,0,0,.4);position:relative}
+.modal.open .modal__card{transform:none}
+.modal__hd{background:linear-gradient(135deg,var(--azul) 0%,var(--azul-900) 100%);color:#fff;padding:36px 32px 32px;position:relative;overflow:hidden;text-align:center}
+.modal__hd::before{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;background-image:url('../assets/logos/pnl-isotipo.png');background-repeat:no-repeat;background-size:contain;opacity:.08}
+.modal__hd::after{content:"";position:absolute;left:-60px;bottom:-60px;width:200px;height:200px;background:radial-gradient(circle,var(--amber) 0%,transparent 65%);opacity:.3}
+.modal__badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(251,162,17,.2);border:1px solid rgba(251,162,17,.5);border-radius:999px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:14px;position:relative;z-index:1}
+.modal__hd h2{color:#fff;font-size:1.6rem;margin:0;position:relative;z-index:1;line-height:1.2}
+.modal__bd{padding:28px 32px 32px}
+.modal__bd p{color:var(--gris-700);font-size:1rem;line-height:1.6;margin-bottom:16px}
+.modal__bd ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:10px}
+.modal__bd ul li{display:flex;align-items:flex-start;gap:10px;color:var(--gris-700);font-size:.92rem}
+.modal__bd ul li::before{content:"";width:18px;height:18px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:2px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23182C54' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E");background-size:14px;background-position:center;background-repeat:no-repeat}
+.modal__actions{display:flex;gap:10px;flex-wrap:wrap}
+.modal__actions .btn{flex:1;justify-content:center;min-width:140px}
+.modal__close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;transition:background .2s}
+.modal__close:hover{background:rgba(255,255,255,.3)}
+.modal__close svg{width:16px;height:16px}
+
+/* ---------- Floating button (zona militantes) ---------- */
+.fab{position:fixed;bottom:22px;right:22px;z-index:150}
+.fab__btn{
+  width:60px;height:60px;border-radius:50%;background:var(--amber);color:var(--azul);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 10px 30px rgba(251,162,17,.4);
+  transition:transform .3s ease, box-shadow .3s ease;
+  animation:fab-float 4s ease-in-out infinite;
+}
+.fab__btn:hover{transform:scale(1.08);box-shadow:0 14px 36px rgba(251,162,17,.55)}
+.fab__btn svg{width:26px;height:26px}
+.fab__btn::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--amber);opacity:.4;animation:fab-pulse 2.4s ease-out infinite}
+@keyframes fab-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes fab-pulse{0%{transform:scale(.9);opacity:.6}80%,100%{transform:scale(1.5);opacity:0}}
+.fab__panel{
+  position:absolute;bottom:76px;right:0;width:280px;background:#fff;
+  border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.25);
+  padding:18px;opacity:0;transform:translateY(10px) scale(.95);pointer-events:none;
+  transition:opacity .25s, transform .25s;border:1px solid var(--gris-100);
+}
+.fab.open .fab__panel{opacity:1;transform:none;pointer-events:auto}
+.fab__panel h4{color:var(--azul);font-size:.95rem;margin-bottom:4px;font-family:var(--fs-serif);font-weight:700}
+.fab__panel p{font-size:.82rem;color:var(--gris-700);margin:0 0 14px}
+.fab__panel a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:var(--azul);font-size:.88rem;font-weight:600;transition:background .2s}
+.fab__panel a:hover{background:var(--amber-50);color:var(--azul)}
+.fab__panel a svg{width:16px;height:16px;color:var(--amber-600);flex-shrink:0}
+.fab__panel hr{border:0;height:1px;background:var(--gris-100);margin:10px 0}
+
 /* ---------- Lista de aportes (home) ---------- */
 .aporte-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:22px}
 .aporte-list li{display:flex;align-items:flex-start;gap:16px}

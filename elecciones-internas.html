@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Elecciones Internas 2026 · PNL</title>
+<meta name="description" content="Elecciones comunales y vacantes del Consejo General del Partido Nacional Libertario. Sábado 21 de noviembre.">
+<link rel="icon" href="assets/logos/pnl-isotipo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.elec-hero{background:linear-gradient(135deg,var(--azul-900) 0%,var(--azul) 100%);color:#fff;padding:88px 0 72px;position:relative;overflow:hidden}
+.elec-hero::before{content:"";position:absolute;right:-80px;top:-60px;width:420px;height:420px;background-image:url('assets/logos/pnl-isotipo.png');background-repeat:no-repeat;background-size:contain;opacity:.07}
+.elec-hero::after{content:"";position:absolute;left:-120px;bottom:-120px;width:300px;height:300px;background:radial-gradient(circle,var(--amber) 0%,transparent 65%);opacity:.2}
+.elec-hero__inner{position:relative;z-index:1;max-width:740px}
+.elec-hero h1{color:#fff;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.05;margin:14px 0 16px}
+.elec-hero h1 em{font-style:normal;color:var(--amber)}
+.elec-hero p{color:rgba(255,255,255,.9);font-size:1.1rem;max-width:60ch;margin:0}
+
+.date-strip{background:var(--amber);color:var(--azul);padding:24px 0;position:relative;overflow:hidden}
+.date-strip__inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;z-index:1}
+.date-strip__left{display:flex;align-items:center;gap:16px}
+.date-strip__ico{width:52px;height:52px;border-radius:12px;background:var(--azul);color:var(--amber);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.date-strip__ico svg{width:28px;height:28px}
+.date-strip strong{display:block;font-family:var(--fs-serif);font-weight:800;font-size:1.3rem;color:var(--azul);line-height:1.1}
+.date-strip span{display:block;font-size:.85rem;color:rgba(24,44,84,.75);margin-top:2px;font-weight:600}
+.date-strip a{background:var(--azul);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.date-strip a:hover{background:var(--azul-900);transform:translateY(-1px)}
+
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.info-tile{background:#fff;border:1px solid var(--gris-100);border-radius:14px;padding:28px;display:flex;flex-direction:column;transition:all .3s;position:relative;overflow:hidden}
+.info-tile::after{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--amber),var(--amber-600));transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.info-tile:hover{transform:translateY(-4px);box-shadow:var(--sombra-md);border-color:transparent}
+.info-tile:hover::after{transform:scaleX(1)}
+.info-tile__ico{width:52px;height:52px;border-radius:12px;background:var(--amber-50);color:var(--amber-600);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.info-tile__ico svg{width:26px;height:26px}
+.info-tile h3{color:var(--azul);font-size:1.12rem;margin-bottom:8px}
+.info-tile p{color:var(--gris-700);font-size:.92rem;line-height:1.55;flex:1;margin-bottom:16px}
+.info-tile a{color:var(--amber-600);font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+.info-tile a svg{width:14px;height:14px}
+.info-tile:hover a{gap:10px}
+
+.region-pill{display:inline-block;padding:6px 12px;background:var(--amber-50);color:var(--amber-600);border-radius:6px;font-size:.78rem;font-weight:700;margin:4px 4px 0 0;letter-spacing:.02em}
+
+.gate{background:linear-gradient(135deg,var(--azul) 0%,var(--azul-900) 100%);color:#fff;border-radius:16px;padding:40px;position:relative;overflow:hidden;text-align:center}
+.gate::before{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;background-image:url('assets/logos/pnl-isotipo.png');background-repeat:no-repeat;background-size:contain;opacity:.08}
+.gate__ico{width:72px;height:72px;border-radius:50%;background:var(--amber);color:var(--azul);display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;position:relative;z-index:1}
+.gate__ico svg{width:36px;height:36px}
+.gate h2{color:#fff;margin-bottom:10px;position:relative;z-index:1}
+.gate p{color:rgba(255,255,255,.85);max-width:52ch;margin:0 auto 24px;position:relative;z-index:1}
+.gate__actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <nav class="nav nav__mobile">
+      <a class="nav__brand" href="index.html"><img src="assets/logos/pnl-horizontal-blanco.png" alt="PNL"></a>
+      <ul class="nav__links">
+        <li><a href="index.html">Inicio</a></li>
+        <li class="has-sub"><a href="nosotros.html">Nosotros</a>
+          <ul class="nav__sub">
+            <li><a href="nosotros.html#principios">Principios</a></li>
+            <li><a href="nosotros.html#directiva">Directiva Nacional</a></li>
+            <li><a href="directivas-regionales.html">Directivas Regionales</a></li>
+            <li><a href="nosotros.html#estatutos">Estatutos</a></li>
+          </ul>
+        </li>
+        <li><a href="autoridades-electas.html">Autoridades electas</a></li>
+        <li class="has-sub"><a href="areas.html">Áreas</a>
+          <ul class="nav__sub">
+            <li><a href="areas.html#juventud">Juventud Nacional Libertaria</a></li>
+            <li><a href="areas.html#mujeres">Mujeres Nacional Libertarias</a></li>
+            <li><a href="academia.html">Academia Nacional Libertaria</a></li>
+          </ul>
+        </li>
+        <li><a href="publicaciones.html">Publicaciones</a></li>
+        <li><a href="donaciones.html">Donaciones</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="donaciones.html" class="btn btn-outline btn-sm">Donar</a>
+        <a href="hazte-militante.html" class="btn btn-primary btn-sm">Hazte militante</a>
+        <button class="nav__burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="elec-hero">
+  <div class="container">
+    <div class="breadcrumb" style="color:rgba(255,255,255,.7);margin-bottom:8px"><a href="index.html" style="color:var(--amber)">Inicio</a> / Elecciones Internas</div>
+    <div class="elec-hero__inner">
+      <span class="academia-badge">Proceso 2026</span>
+      <h1>Elecciones Comunales y <em>Vacantes Consejo General</em></h1>
+      <p>Los militantes habilitados elegirán directivas comunales en todas las comunas donde se hayan inscrito listas, y renovarán vacantes del Consejo General en seis regiones.</p>
+    </div>
+  </div>
+</section>
+
+<section class="date-strip">
+  <div class="container date-strip__inner">
+    <div class="date-strip__left">
+      <div class="date-strip__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 16H5V9h14v11zM7 11h5v5H7z"/></svg></div>
+      <div>
+        <strong>Sábado 21 de noviembre de 2026</strong>
+        <span>Locales de votación publicados desde el 10 de noviembre</span>
+      </div>
+    </div>
+    <a href="https://eleccionespnl.cl/CONSULTA_RUT/" target="_blank" rel="noopener">
+      Consulta tu local <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="center section-head">
+      <span class="eyebrow">Información del proceso</span>
+      <h2>Todo lo que necesitas saber</h2>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-tile">
+        <div class="info-tile__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg></div>
+        <h3>Documentos</h3>
+        <p>Reglamento del proceso, cronograma oficial y toda la información normativa de la elección.</p>
+        <a href="https://eleccionespnl.cl/documentos-2025/" target="_blank" rel="noopener">Ver documentos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="info-tile">
+        <div class="info-tile__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7zm0 9.5A2.5 2.5 0 1012 6.5a2.5 2.5 0 000 5z"/></svg></div>
+        <h3>¿Qué comunas participarán?</h3>
+        <p>Mapa interactivo con las comunas donde hay elección de directiva comunal y regiones con vacantes de Consejo General.</p>
+        <a href="https://eleccionespnl.cl/COMUNAS_CON_ELECCIONES/" target="_blank" rel="noopener">Ver mapa <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="info-tile">
+        <div class="info-tile__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11a4 4 0 10-4-4 4 4 0 004 4zm-8 0a4 4 0 10-4-4 4 4 0 004 4zm0 2c-2.7 0-8 1.3-8 4v3h10v-3c0-1 .3-1.8.7-2.6-1-.3-2-.4-2.7-.4zm8 0c-.4 0-.9 0-1.4.1A5.4 5.4 0 0117 17v3h7v-3c0-2.7-5.3-4-8-4z"/></svg></div>
+        <h3>Candidaturas</h3>
+        <p>Conoce las listas que compiten en tu comuna y los candidatos al Consejo General por tu región.</p>
+        <a href="https://eleccionespnl.cl/CONSULTA_TU_COMUNA" target="_blank" rel="noopener">Ver candidatos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="info-tile">
+        <div class="info-tile__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg></div>
+        <h3>Consulta tus datos electorales</h3>
+        <p>Verifica si debes votar y dónde te corresponde hacerlo. Locales de votación disponibles desde el 10 de noviembre.</p>
+        <a href="https://eleccionespnl.cl/CONSULTA_RUT/" target="_blank" rel="noopener">Consultar RUT <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--gris">
+  <div class="container">
+    <div class="two-col two-col--plain" style="align-items:center">
+      <div>
+        <span class="eyebrow">Consejo General</span>
+        <h2>Vacantes a elegir</h2>
+        <p>Este proceso también renueva vacantes del Consejo General en las siguientes regiones:</p>
+        <div>
+          <span class="region-pill">Arica y Parinacota</span>
+          <span class="region-pill">Tarapacá</span>
+          <span class="region-pill">Antofagasta</span>
+          <span class="region-pill">Coquimbo</span>
+          <span class="region-pill">Maule</span>
+          <span class="region-pill">Ñuble</span>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow">Campaña</span>
+        <h2>Material de campaña digital</h2>
+        <p>Si eres candidato o apoyas una lista, encuentra las piezas gráficas oficiales y material de difusión en el repositorio de campaña digital.</p>
+        <a href="https://sites.google.com/nacionallibertario.cl/campanadigital2026/" target="_blank" rel="noopener" class="btn btn-primary">Ver campaña digital</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="gate">
+      <div class="gate__ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6a5 5 0 00-10 0v2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V10a2 2 0 00-2-2zM9 6a3 3 0 016 0v2H9V6zm3 11a2 2 0 110-4 2 2 0 010 4z"/></svg></div>
+      <h2>Acceso exclusivo para militantes</h2>
+      <p>Los resultados detallados, actas y comunicaciones oficiales de las elecciones internas están disponibles solo para militantes inscritos. Inicia sesión para acceder.</p>
+      <div class="gate__actions">
+        <a href="login.html" class="btn btn-primary">Iniciar sesión</a>
+        <a href="hazte-militante.html" class="btn btn-ghost">Hazte militante</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand"><img src="assets/logos/pnl-horizontal-azul.png" alt="PNL"><p class="footer__tag">Por un Chile libre, seguro y soberano.</p></div>
+      <div><h4>Partido</h4><a href="nosotros.html">Nosotros</a><a href="autoridades-electas.html">Autoridades electas</a><a href="directivas-regionales.html">Directivas regionales</a></div>
+      <div><h4>Participa</h4><a href="hazte-militante.html">Hazte militante</a><a href="donaciones.html">Donaciones</a><a href="elecciones-internas.html">Elecciones internas</a></div>
+      <div><h4>Contacto</h4><a href="mailto:contacto@nacionallibertario.cl">contacto@nacionallibertario.cl</a></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 Partido Nacional Libertario</span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

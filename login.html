@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Iniciar sesión · PNL</title>
+<meta name="description" content="Acceso para militantes del Partido Nacional Libertario.">
+<link rel="icon" href="assets/logos/pnl-isotipo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.login-wrap{min-height:calc(100vh - 80px);display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+.login-side{background:linear-gradient(135deg,var(--azul) 0%,var(--azul-900) 100%);color:#fff;padding:60px 48px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.login-side::before{content:"";position:absolute;right:-100px;top:-80px;width:360px;height:360px;background-image:url('assets/logos/pnl-isotipo.png');background-repeat:no-repeat;background-size:contain;opacity:.08}
+.login-side::after{content:"";position:absolute;left:-80px;bottom:-80px;width:240px;height:240px;background:radial-gradient(circle,var(--amber) 0%,transparent 65%);opacity:.3}
+.login-side > *{position:relative;z-index:1}
+.login-side h1{color:#fff;font-size:2.4rem;margin-bottom:14px;line-height:1.1}
+.login-side p{color:rgba(255,255,255,.85);font-size:1.05rem;margin-bottom:28px;max-width:40ch}
+.login-side .perks{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.login-side .perks li{display:flex;align-items:flex-start;gap:10px;color:rgba(255,255,255,.9);font-size:.95rem}
+.login-side .perks li svg{width:20px;height:20px;color:var(--amber);flex-shrink:0;margin-top:2px}
+.login-form-wrap{padding:60px 48px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.login-form{max-width:400px;width:100%}
+.login-form h2{color:var(--azul);margin-bottom:8px}
+.login-form .sub{color:var(--gris-700);margin-bottom:28px;font-size:.95rem}
+.login-form label{display:block;font-size:.85rem;font-weight:700;color:var(--azul);margin-bottom:6px;letter-spacing:.02em}
+.login-form input{width:100%;padding:14px 16px;border:1.5px solid var(--gris-200);border-radius:10px;font-family:inherit;font-size:1rem;background:#fff;transition:border-color .2s;margin-bottom:18px}
+.login-form input:focus{outline:0;border-color:var(--amber);box-shadow:0 0 0 3px rgba(251,162,17,.15)}
+.login-form .row-small{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;font-size:.85rem}
+.login-form .row-small label{display:inline-flex;align-items:center;gap:8px;margin:0;font-weight:500;color:var(--gris-700);text-transform:none;letter-spacing:0}
+.login-form .row-small input[type=checkbox]{width:auto;margin:0}
+.login-form a.forgot{color:var(--amber-600);font-weight:600}
+.login-form .submit{width:100%;justify-content:center;padding:14px}
+.login-form .divider{text-align:center;margin:24px 0;position:relative;color:var(--gris-400);font-size:.82rem}
+.login-form .divider::before,.login-form .divider::after{content:"";position:absolute;top:50%;width:40%;height:1px;background:var(--gris-200)}
+.login-form .divider::before{left:0}.login-form .divider::after{right:0}
+.login-form .alt{text-align:center;font-size:.9rem;color:var(--gris-700)}
+.login-form .alt a{color:var(--amber-600);font-weight:700}
+.login-note{background:var(--amber-50);border-left:3px solid var(--amber);padding:12px 14px;border-radius:8px;font-size:.82rem;color:var(--azul);margin-bottom:20px}
+@media (max-width:860px){.login-wrap{grid-template-columns:1fr}.login-side{padding:48px 28px}.login-form-wrap{padding:48px 28px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <nav class="nav nav__mobile">
+      <a class="nav__brand" href="index.html"><img src="assets/logos/pnl-horizontal-blanco.png" alt="PNL"></a>
+      <ul class="nav__links">
+        <li><a href="index.html">Inicio</a></li>
+        <li class="has-sub"><a href="nosotros.html">Nosotros</a>
+          <ul class="nav__sub">
+            <li><a href="nosotros.html#principios">Principios</a></li>
+            <li><a href="nosotros.html#directiva">Directiva Nacional</a></li>
+            <li><a href="directivas-regionales.html">Directivas Regionales</a></li>
+            <li><a href="nosotros.html#estatutos">Estatutos</a></li>
+          </ul>
+        </li>
+        <li><a href="autoridades-electas.html">Autoridades electas</a></li>
+        <li class="has-sub"><a href="areas.html">Áreas</a>
+          <ul class="nav__sub">
+            <li><a href="areas.html#juventud">Juventud Nacional Libertaria</a></li>
+            <li><a href="areas.html#mujeres">Mujeres Nacional Libertarias</a></li>
+            <li><a href="academia.html">Academia Nacional Libertaria</a></li>
+          </ul>
+        </li>
+        <li><a href="publicaciones.html">Publicaciones</a></li>
+        <li><a href="donaciones.html">Donaciones</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="donaciones.html" class="btn btn-outline btn-sm">Donar</a>
+        <a href="hazte-militante.html" class="btn btn-primary btn-sm">Hazte militante</a>
+        <button class="nav__burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="login-wrap">
+  <aside class="login-side">
+    <h1>Zona Militantes</h1>
+    <p>Accede con tu cuenta de militante para desbloquear el contenido exclusivo del partido.</p>
+    <ul class="perks">
+      <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Academia Nacional Libertaria</li>
+      <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Información y resultados de elecciones internas</li>
+      <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Documentos oficiales reservados</li>
+      <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Comunicaciones internas y encuentros nacionales</li>
+    </ul>
+  </aside>
+
+  <section class="login-form-wrap">
+    <form class="login-form" onsubmit="event.preventDefault();alert('Prototipo: aquí conectaríamos con la base de datos de militantes (Servel/sistema interno).');">
+      <h2>Iniciar sesión</h2>
+      <p class="sub">Ingresa con tu RUT y clave de militante.</p>
+
+      <div class="login-note"><strong>Prototipo:</strong> esta pantalla es solo demostrativa. En producción se conectará al registro oficial de militantes.</div>
+
+      <label for="rut">RUT</label>
+      <input id="rut" type="text" required placeholder="12.345.678-9" autocomplete="username">
+
+      <label for="pass">Clave</label>
+      <input id="pass" type="password" required placeholder="Tu contraseña" autocomplete="current-password">
+
+      <div class="row-small">
+        <label><input type="checkbox"> Recordarme</label>
+        <a href="#" class="forgot">¿Olvidaste tu clave?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary submit">Entrar a la Zona Militantes</button>
+
+      <div class="divider">o</div>
+
+      <p class="alt">¿Aún no eres militante? <a href="hazte-militante.html">Hazte militante del PNL</a></p>
+    </form>
+  </section>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand"><img src="assets/logos/pnl-horizontal-azul.png" alt="PNL"><p class="footer__tag">Por un Chile libre, seguro y soberano.</p></div>
+      <div><h4>Partido</h4><a href="nosotros.html">Nosotros</a><a href="autoridades-electas.html">Autoridades electas</a></div>
+      <div><h4>Participa</h4><a href="hazte-militante.html">Hazte militante</a><a href="donaciones.html">Donaciones</a><a href="academia.html">Academia</a></div>
+      <div><h4>Contacto</h4><a href="mailto:contacto@nacionallibertario.cl">contacto@nacionallibertario.cl</a></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 Partido Nacional Libertario</span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
