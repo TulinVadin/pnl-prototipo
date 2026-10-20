@@ -40,19 +40,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // ======= Mobile menu overlay =======
   buildMobileMenu();
 
-  // Header scroll-aware
+  // Header scroll-aware + parallax sutil del hero
   const header = document.querySelector('.header');
-  if (header) {
-    let ticking = false;
-    const updateHeader = () => {
-      header.classList.toggle('scrolled', window.scrollY > 24);
-      ticking = false;
-    };
-    window.addEventListener('scroll', () => {
-      if (!ticking) { window.requestAnimationFrame(updateHeader); ticking = true; }
-    }, { passive: true });
-    updateHeader();
-  }
+  const heroBg = document.querySelector('.hero');
+  let ticking = false;
+  const updateOnScroll = () => {
+    const y = window.scrollY;
+    if (header) header.classList.toggle('scrolled', y > 24);
+    // Parallax: la imagen del hero sube más lento que el scroll para efecto profundidad
+    if (heroBg && y < window.innerHeight) {
+      heroBg.style.setProperty('--parallax-y', (y * 0.3) + 'px');
+    }
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateOnScroll); ticking = true; }
+  }, { passive: true });
+  updateOnScroll();
 
   // Auto-reveal (sin delays en mobile para que cards aparezcan rápido)
   const isMobile = window.matchMedia('(max-width: 760px)').matches;
@@ -78,7 +82,57 @@ document.addEventListener('DOMContentLoaded', () => {
     renderGateWall(path);
   }
 
-  // Modal de bienvenida Academia: desactivado por decisión del cliente
+  // ======= Modal Academia: aparece al 55% de scroll depth (no al cargar) =======
+  const isHome = /\/(index\.html)?$/.test(location.pathname) || location.pathname.endsWith('/') || path === 'index.html';
+  let modalShown = false;
+  try { modalShown = sessionStorage.getItem('pnl_academia_modal_seen') === '1'; } catch(e){}
+
+  if (isHome && !modalShown && !PNL.isLoggedIn()) {
+    const checkScrollDepth = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) : 0;
+      if (pct >= 0.55 && !modalShown) {
+        modalShown = true;
+        window.removeEventListener('scroll', checkScrollDepth);
+        showAcademiaModal();
+      }
+    };
+    window.addEventListener('scroll', checkScrollDepth, { passive: true });
+  }
+
+  function showAcademiaModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+      <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal__close" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="modal__hd">
+          <span class="modal__badge">Militantes PNL</span>
+          <h2 id="modalTitle">¿Ya eres militante del partido?</h2>
+        </div>
+        <div class="modal__bd">
+          <p>Accede a la <strong>Academia Nacional Libertaria</strong>, resultados de elecciones internas y comunicaciones reservadas para la militancia.</p>
+          <div class="modal__actions">
+            <a href="login.html" class="btn btn-primary">Iniciar sesión</a>
+            <a href="hazte-militante.html" class="btn btn-outline">Hazte militante</a>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    const closeFn = () => {
+      modal.classList.remove('open');
+      try { sessionStorage.setItem('pnl_academia_modal_seen', '1'); } catch(e){}
+      setTimeout(() => modal.remove(), 400);
+    };
+    modal.querySelector('.modal__close').addEventListener('click', closeFn);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeFn(); });
+    document.addEventListener('keydown', function esc(e){ if (e.key === 'Escape') { closeFn(); document.removeEventListener('keydown', esc); } });
+    requestAnimationFrame(() => modal.classList.add('open'));
+  }
 
   // ======= Toast lateral para militantes logueados =======
   if (PNL.isLoggedIn()) {

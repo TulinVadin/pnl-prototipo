@@ -283,8 +283,11 @@ body.menu-open{overflow:hidden}
   content:"";position:absolute;inset:0;z-index:-2;
   background-image:url('../assets/img/hero-cierre-desktop.jpg');
   background-size:cover;background-position:center 55%;
-  transform:scale(1.05);
+  transform:translate3d(0, var(--parallax-y, 0), 0) scale(1.08);
+  will-change:transform;
+  transition:transform .05s linear;
 }
+@media (prefers-reduced-motion: reduce){.hero::before{transform:scale(1.05)}}
 @media (max-width:760px){
   .hero::before{
     background-image:url('../assets/img/hero-cierre-mobile.jpg');
@@ -714,6 +717,20 @@ a.card:hover .card__name{color:var(--amber-600)}
 
 /* ---------- Pills / badges ---------- */
 .pill{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--amber-50);color:var(--amber-600);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-right:6px;margin-bottom:4px}
+
+/* ---------- Galería PNL en acción ---------- */
+.gallery-pnl{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:200px 200px;gap:12px;max-width:1200px;margin:0 auto}
+.gallery-pnl figure{margin:0;position:relative;overflow:hidden;border-radius:14px;cursor:pointer}
+.gallery-pnl figure img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.gallery-pnl figure:hover img{transform:scale(1.08)}
+.gallery-pnl figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.75) 100%);pointer-events:none}
+.gallery-pnl figcaption{position:absolute;left:16px;bottom:14px;color:#fff;font-weight:700;font-size:.9rem;letter-spacing:.02em;z-index:1;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.gallery-pnl figcaption span{display:block;font-size:.72rem;font-weight:600;color:var(--amber);letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px;opacity:.95}
+.gallery-pnl .g-big{grid-row:span 2}
+@media (max-width:760px){
+  .gallery-pnl{grid-template-columns:1fr 1fr;grid-template-rows:180px 180px 180px;gap:10px}
+  .gallery-pnl .g-big{grid-column:span 2;grid-row:span 1;height:200px}
+}
 
 /* ---------- Franja CTA full-width ---------- */
 .strip-cta{
